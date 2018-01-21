@@ -35,7 +35,7 @@ Here are some examples:
 ============ ======================= =========
 Expression   Representation          Input
 ============ ======================= =========
-Variable     :math:`(x)`              x
+Variable     :math:`x`                x
 Application  :math:`(xy)`             (xy)
 Application  :math:`((xy)z)`          ((xy)z)
 Application  :math:`(x(yz))`          (x(yz))
