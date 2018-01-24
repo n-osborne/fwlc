@@ -9,6 +9,16 @@
 :synopsis: Provide modelisation for lambda expressions of the form simple name.
 """
 
+from alphabet_def import *
+
+
+class LambdaVarError(Exception):
+    """
+    Exception for badly formed LambdaVar.
+    """
+    def __init__(self, msg):
+        self.message = msg
+
 
 
 class LambdaVar():
@@ -31,6 +41,21 @@ class LambdaVar():
     - 
 
     """
+
+    def __init__(self, name):
+        """
+        Constructor for LambdaVar class.
+
+        :param name: the name of the variable
+        :type name: str
+        :UC: name must be in the alphabet of variable
+        """
+        # TODO tests
+        try:
+            assert name in VAR_SET
+            self.name = name
+        except AssertionError:
+            raise LambdaVarError('This is not a lambda variable.')
 
 
 if __name__ == '__main__':
