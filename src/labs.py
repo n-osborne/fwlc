@@ -9,6 +9,18 @@
 :synopsis: Provide a modelisation for lambda expressions of the form abstraction.
 """
 
+from alphabet_def import *
+
+
+class LambdaAbsError(Exception):
+    """
+    Exception for badly formed LambdaAbs.
+    """
+    def __init__(self, msg):
+        self.message = msg
+
+        
+
 
 
 class LambdaAbs():
@@ -30,6 +42,27 @@ class LambdaAbs():
 
     """
 
+    def __init__(self, binder, body):
+        """
+        Constructor for LambdaAbs class.
+
+        :param binder: the binder variable of tha lambda abstraction
+        :type binder: str
+        :param body: the body of the lambda abstraction
+        :type body: lexpr.LambdaExpr
+        :UC: binder must be in the alphabet
+        """
+        # TODO tests
+        try:
+            assert type(binder) == str and\
+                binder in VAR_SET and\
+                type(body) == lexpr.LambdaExpr
+            self.binder = binder
+            self.body = body
+        except AssertionError:
+            raise LambdaAbsError('This is not a lambda abstraction.')
+
+        
 
 if __name__ == '__main__':
     import doctest
