@@ -9,7 +9,15 @@
 :synopsis: Provide modelisation for lambda expressions of the form application.
 """
 
+from alphabet_def import *
 
+
+class LambdaAppError(Exception):
+    """
+    Exception for badly formed LambdaApp.
+    """
+    def __init__(self, msg):
+        self.message = msg
 
 class LambdaApp():
     """
@@ -38,6 +46,26 @@ class LambdaApp():
     - betaReduct(self)
 
     """
+
+
+    def __init__(self, function, argument):
+        """
+        Constructor for LambdaApp class.
+
+        :param function: the function of the lambda application
+        :type function: lexpr.LambdaExpr
+        :param argument: the argument passed to the function of the lambda application
+        :type argument: lexpr.LambdaExpr
+        
+        """
+        # TODO tests
+        try:
+            assert type(function) == lexpr.LambdaExpr\
+                and type(argument) == lexpr.LambdaExpr
+            self.function = function
+            self.argument = function
+        except AssertionError:
+            raise LambdaAppError('This is not a lambda application.')
 
 
 if __name__ == '__main__':
