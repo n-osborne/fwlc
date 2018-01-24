@@ -49,13 +49,27 @@ class LambdaVar():
         :param name: the name of the variable
         :type name: str
         :UC: name must be in the alphabet of variable
+        :Examples:
+
+        >>> x = LambdaVar("x")
+        >>> print(x.name)
+        x
+        >>> type(x) == LambdaVar
+        True
+        >>> type(x.name) == str
+        True
+        >>> error = LambdaVar(3)
+        Traceback (most recent call last):
+        ...
+        LambdaVarError: This is not a lambda variable.
         """
-        # TODO tests
         try:
             assert name in VAR_SET
             self.name = name
         except AssertionError:
             raise LambdaVarError('This is not a lambda variable.')
+
+
 
 
 if __name__ == '__main__':
