@@ -10,6 +10,7 @@
 """
 
 from alphabet_def import *
+import lexpr
 
 
 class LambdaAbsError(Exception):
@@ -51,8 +52,26 @@ class LambdaAbs():
         :param body: the body of the lambda abstraction
         :type body: lexpr.LambdaExpr
         :UC: binder must be in the alphabet
+        :Examples:
+        
+        >>> import lexpr, lvar
+        >>> x = lexpr.LambdaExpr(lvar.LambdaVar("x"))
+        >>> identity = LambdaAbs("x", x)
+        >>> type(identity) == LambdaAbs
+        True
+        >>> type(identity.binder) == str
+        True
+        >>> type(identity.body) == lexpr.LambdaExpr
+        True
+        >>> binder_error = LambdaAbs(",", x)
+        Traceback (most recent call last):
+        ...
+        LambdaAbsError: This is not a lambda abstraction.
+        >>> binder_error = LambdaAbs(x, x)
+        Traceback (most recent call last):
+        ...
+        LambdaAbsError: This is not a lambda abstraction.
         """
-        # TODO tests
         try:
             assert type(binder) == str and\
                 binder in VAR_SET and\
