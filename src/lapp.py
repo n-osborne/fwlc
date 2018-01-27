@@ -10,7 +10,7 @@
 """
 
 from alphabet_def import *
-
+import lexpr
 
 class LambdaAppError(Exception):
     """
@@ -56,9 +56,23 @@ class LambdaApp():
         :type function: lexpr.LambdaExpr
         :param argument: the argument passed to the function of the lambda application
         :type argument: lexpr.LambdaExpr
-        
+        :Examples:
+
+        >>> import lexpr, lvar
+        >>> x = lexpr.LambdaExpr(lvar.LambdaVar("x"))
+        >>> y = lexpr.LambdaExpr(lvar.LambdaVar("y"))
+        >>> xy = LambdaApp(x, y)
+        >>> type(xy) == LambdaApp
+        True
+        >>> type(xy.function) == lexpr.LambdaExpr
+        True
+        >>> type(xy.argument) == lexpr.LambdaExpr
+        True
+        >>> xz = LambdaApp(x, lvar.LambdaVar("z"))
+        Traceback (most recent call last):
+        ...
+        LambdaAppError: This is not a lambda application.
         """
-        # TODO tests
         try:
             assert type(function) == lexpr.LambdaExpr\
                 and type(argument) == lexpr.LambdaExpr
