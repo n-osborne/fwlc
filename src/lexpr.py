@@ -10,7 +10,7 @@
 """
 
 from alphabet_def import *
-
+import lvar, labs, lapp
 
 class LambdaExprError(Exception):
     """
@@ -55,6 +55,17 @@ class LambdaExpr():
 
         :param expression: the lambda expression contained in the object
         :type expression: LambdaVar, LambdaApp or LambdaAbs
+        :Examples:
+
+        >>> x = LambdaExpr(lvar.LambdaVar("x"))
+        >>> type(x) == LambdaExpr
+        True
+        >>> type(x.expression) == lvar.LambdaVar
+        True
+        >>> error = LambdaExpr(x)
+        Traceback (most recent call last):
+        ...
+        LambdaExprError: This is not a lambda expression.
         
         """
         try:
