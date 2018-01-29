@@ -82,6 +82,33 @@ class LambdaAbs():
             raise LambdaAbsError('This is not a lambda abstraction.')
 
         
+    def __repr__(self):
+        """
+        Provide readable representation for LambdaAbs
+        :Examples:
+
+        >>> from lexpr import *
+        >>> from lvar import *
+        >>> from lapp import *
+        >>> x = LambdaExpr(LambdaVar("x"))
+        >>> identity = LambdaAbs("x", x)
+        >>> print(identity)
+        (λx.x)
+        >>> false = LambdaAbs("y", LambdaExpr(identity))
+        >>> print(false)
+        (λy.(λx.x))
+        >>> double = LambdaAbs("x", LambdaExpr(LambdaApp(x, x)))
+        >>> print(double)
+        (λx.(xx))
+        """
+        rep = "({}".format(LAMBDA_OP)
+        rep += self.binder
+        rep += LAMBDA_DOT
+        rep += "{}".format(self.body.expression)
+        rep += ")"
+        return rep
+        
+        
 
 if __name__ == '__main__':
     import doctest
