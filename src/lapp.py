@@ -10,7 +10,7 @@
 """
 
 from alphabet_def import *
-import lexpr
+from lexpr import *
 
 class LambdaAppError(Exception):
     """
@@ -77,10 +77,29 @@ class LambdaApp():
             assert type(function) == lexpr.LambdaExpr\
                 and type(argument) == lexpr.LambdaExpr
             self.function = function
-            self.argument = function
+            self.argument = argument
         except AssertionError:
             raise LambdaAppError('This is not a lambda application.')
 
+    def __repr__(self):
+        """
+        Provide a readable representaition for LambdaApp.
+
+        :Examples:
+    
+        >>> from lexpr import *
+        >>> from lvar import *
+        >>> x = LambdaExpr(LambdaVar("x"))
+        >>> y = LambdaExpr(LambdaVar("y"))
+        >>> z = LambdaExpr(LambdaVar("z"))
+        >>> xy = LambdaApp(x, y)
+        >>> print(xy)
+        (xy)
+        >>> xyz = LambdaApp(LambdaExpr(xy), z)
+        >>> print(xyz)
+        ((xy)z)
+        """
+        return "({}".format(self.function.expression) + "{})".format(self.argument.expression)
 
 if __name__ == '__main__':
     import doctest
