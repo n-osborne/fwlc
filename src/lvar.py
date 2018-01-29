@@ -69,8 +69,16 @@ class LambdaVar():
         except AssertionError:
             raise LambdaVarError('This is not a lambda variable.')
 
+    def __repr__(self):
+        """
+        Provide a readable representation of LambdaVar.
+        :Examples:
 
-
+        >>> x = LambdaVar("x")
+        >>> print(x)
+        x
+        """
+        return self.name
 
 if __name__ == '__main__':
     import doctest
