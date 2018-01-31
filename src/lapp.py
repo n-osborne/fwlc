@@ -10,7 +10,8 @@
 """
 
 from alphabet_def import *
-from lexpr import *
+import lvar
+import labs
 
 class LambdaAppError(Exception):
     """
@@ -25,10 +26,10 @@ class LambdaApp():
 
     :param function: the lambda expression taken as the function of the
     application
-    :type function: lexpr.LambdaExpr
+    :type function: LambdaVar, LambdaApp or LambdaAbs
     :param argument: the lambda expression taken as the argument of the
     application
-    :type argument: lexpr.LambdaExpr
+    :type argument: LambdaVar, LambdaApp or LambdaAbs
 
     :attributes:
     - function
@@ -58,24 +59,24 @@ class LambdaApp():
         :type argument: lexpr.LambdaExpr
         :Examples:
 
-        >>> import lexpr, lvar
-        >>> x = lexpr.LambdaExpr(lvar.LambdaVar("x"))
-        >>> y = lexpr.LambdaExpr(lvar.LambdaVar("y"))
+        >>> from lvar import *
+        >>> from labs import *
+        >>> x = LambdaVar("x")
+        >>> y = LambdaVar("y")
         >>> xy = LambdaApp(x, y)
         >>> type(xy) == LambdaApp
         True
-        >>> type(xy.function) == lexpr.LambdaExpr
+        >>> xyx = LambdaApp(xy, x)
+        >>> type(xyx) == LambdaApp
         True
-        >>> type(xy.argument) == lexpr.LambdaExpr
-        True
-        >>> xz = LambdaApp(x, lvar.LambdaVar("z"))
+        >>> xz = LambdaApp(x, "z")
         Traceback (most recent call last):
         ...
-        LambdaAppError: This is not a lambda application.
+        lapp.LambdaAppError: This is not a lambda application.
         """
         try:
-            assert type(function) == lexpr.LambdaExpr\
-                and type(argument) == lexpr.LambdaExpr
+            assert type(function) in {labs.LambdaAbs, lvar.LambdaVar, LambdaApp}
+            assert type(argument) in {labs.LambdaAbs, lvar.LambdaVar, LambdaApp}
             self.function = function
             self.argument = argument
         except AssertionError:
@@ -89,17 +90,17 @@ class LambdaApp():
     
         >>> from lexpr import *
         >>> from lvar import *
-        >>> x = LambdaExpr(LambdaVar("x"))
-        >>> y = LambdaExpr(LambdaVar("y"))
-        >>> z = LambdaExpr(LambdaVar("z"))
+        >>> x = LambdaVar("x")
+        >>> y = LambdaVar("y")
+        >>> z = LambdaVar("z")
         >>> xy = LambdaApp(x, y)
         >>> print(xy)
         (xy)
-        >>> xyz = LambdaApp(LambdaExpr(xy), z)
+        >>> xyz = LambdaApp(xy, z)
         >>> print(xyz)
         ((xy)z)
         """
-        return "({}".format(self.function.expression) + "{})".format(self.argument.expression)
+        return "({}".format(self.function) + "{})".format(self.argument)
 
 if __name__ == '__main__':
     import doctest

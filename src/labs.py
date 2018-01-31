@@ -10,7 +10,8 @@
 """
 
 from alphabet_def import *
-import lexpr
+import lvar
+import lapp
 
 
 class LambdaAbsError(Exception):
@@ -30,7 +31,7 @@ class LambdaAbs():
 
     :attributes:
     - binder (str)
-    - body (lexpr.LambdaExpr)
+    - body (LambdaVar, LambdaApp or LambdaAbs)
 
     :methods:
     - getBody(self)
@@ -50,18 +51,19 @@ class LambdaAbs():
         :param binder: the binder variable of tha lambda abstraction
         :type binder: str
         :param body: the body of the lambda abstraction
-        :type body: lexpr.LambdaExpr
+        :type body: LambdaVar, LambdaApp or LambdaAbs
         :UC: binder must be in the alphabet
         :Examples:
         
-        >>> import lexpr, lvar
-        >>> x = lexpr.LambdaExpr(lvar.LambdaVar("x"))
+        >>> from lvar import *
+        >>> from lapp import *
+        >>> x = LambdaVar("x")
         >>> identity = LambdaAbs("x", x)
         >>> type(identity) == LambdaAbs
         True
         >>> type(identity.binder) == str
         True
-        >>> type(identity.body) == lexpr.LambdaExpr
+        >>> type(identity.body) in {LambdaAbs, LambdaVar, LambdaApp}
         True
         >>> binder_error = LambdaAbs(",", x)
         Traceback (most recent call last):
@@ -73,9 +75,9 @@ class LambdaAbs():
         LambdaAbsError: This is not a lambda abstraction.
         """
         try:
-            assert type(binder) == str and\
-                binder in VAR_SET and\
-                type(body) == lexpr.LambdaExpr
+            assert type(binder) == str
+            assert binder in VAR_SET
+            assert type(body) in {LambdaAbs, lvar.LambdaVar, lapp.LambdaApp}
             self.binder = binder
             self.body = body
         except AssertionError:
@@ -90,21 +92,21 @@ class LambdaAbs():
         >>> from lexpr import *
         >>> from lvar import *
         >>> from lapp import *
-        >>> x = LambdaExpr(LambdaVar("x"))
+        >>> x = LambdaVar("x")
         >>> identity = LambdaAbs("x", x)
         >>> print(identity)
         (λx.x)
-        >>> false = LambdaAbs("y", LambdaExpr(identity))
+        >>> false = LambdaAbs("y", identity)
         >>> print(false)
         (λy.(λx.x))
-        >>> double = LambdaAbs("x", LambdaExpr(LambdaApp(x, x)))
+        >>> double = LambdaAbs("x", LambdaApp(x, x))
         >>> print(double)
         (λx.(xx))
         """
         rep = "({}".format(LAMBDA_OP)
         rep += self.binder
         rep += LAMBDA_DOT
-        rep += "{}".format(self.body.expression)
+        rep += "{}".format(self.body)
         rep += ")"
         return rep
         
@@ -113,3 +115,5 @@ class LambdaAbs():
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
+
+    
