@@ -10,11 +10,13 @@
 """
 
 from alphabet_def import *
-import lvar, labs, lapp
+import lvar
+import labs
+import lapp
 
-class LambdaExprError(Exception):
+class LambdaExpError(Exception):
     """
-    Exception for badly formed LambdaExpr.
+    Exception for badly formed LambdaExp.
     """
     def __init__(self, msg):
         self.message = msg
@@ -22,7 +24,7 @@ class LambdaExprError(Exception):
 
 
         
-class LambdaExpr():
+class LambdaExp():
     """
     General class for lambda expressions. 
 
@@ -57,22 +59,45 @@ class LambdaExpr():
         :type expression: LambdaVar, LambdaApp or LambdaAbs
         :Examples:
 
-        >>> x = LambdaExpr(lvar.LambdaVar("x"))
-        >>> type(x) == LambdaExpr
+        >>> from lvar import *
+        >>> x = LambdaExp(LambdaVar("x"))
+        >>> type(x) == LambdaExp
         True
-        >>> type(x.expression) == lvar.LambdaVar
+        >>> type(x.expression) == LambdaVar
         True
-        >>> error = LambdaExpr(x)
+        >>> error = LambdaExp(x)
         Traceback (most recent call last):
         ...
-        LambdaExprError: This is not a lambda expression.
+        LambdaExpError: This is not a lambda expression.
         
         """
         try:
-            assert type(expression) in (lvar.LambdaVar, lapp.LambdaApp, labs.LambdaAbs)
+            assert type(expression) in (lvar.LambdaVar, lapp.LambdaApp,\
+                                        labs.LambdaAbs)
             self.expression = expression
         except AssertionError:
-            raise LambdaExprError("This is not a lambda expression.")
+            raise LambdaExpError("This is not a lambda expression.")
+
+
+        
+    def __repr__(self):
+        """
+        Provide readable representation for LambdaExp.
+        :Examples:
+
+        >>> from lvar import *
+        >>> from lapp import *
+        >>> from labs import *
+        >>> x = LambdaExp(lvar.LambdaVar("x"))
+        >>> print(x)
+        x
+        >>> xy = LambdaExp(lapp.LambdaApp(lvar.LambdaVar("x"), lvar.LambdaVar("y")))
+        >>> print(xy)
+        (xy)
+        """
+        return "{}".format(self.expression)
+
+
         
 if __name__ == '__main__':
     import doctest
