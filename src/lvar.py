@@ -36,7 +36,7 @@ class LambdaVar():
     - __init__(self, name)
     - __repr__(self)
     - getName(self)
-    - rename(self)
+    - rename(self, newName)
     - getFreeVar(self)
     - 
 
@@ -81,6 +81,40 @@ class LambdaVar():
         return self.name
 
 
+
+
+    def getName(self):
+        """
+        Get the name of the variable.
+        
+        >>> LambdaVar("x").getName() == "x"
+        True
+        """
+        return self.name
+
+    def rename(self, newName):
+        """
+        Rename the variable.
+
+        :param newName: the new name to give
+        :type newName: str
+        :UC: newName in VAR_SET == True
+        :Examples:
+
+        >>> x = LambdaVar("x")
+        >>> x.rename("y")
+        >>> x.getName() == "y"
+        True
+        >>> x.rename("?")
+        Traceback (most recent call last):
+        ...
+        LambdaVarError: This is not the name of a lambda variable.
+        """
+        try:
+            assert newName in VAR_SET
+            self.name = newName
+        except AssertionError:
+            raise LambdaVarError("This is not the name of a lambda variable.")
 
 
     def freeVar(self):
