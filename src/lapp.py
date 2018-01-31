@@ -72,7 +72,7 @@ class LambdaApp():
         >>> xz = LambdaApp(x, "z")
         Traceback (most recent call last):
         ...
-        lapp.LambdaAppError: This is not a lambda application.
+        LambdaAppError: This is not a lambda application.
         """
         try:
             assert type(function) in {labs.LambdaAbs, lvar.LambdaVar, LambdaApp}
