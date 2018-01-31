@@ -102,6 +102,29 @@ class LambdaApp():
         """
         return "({}".format(self.function) + "{})".format(self.argument)
 
+
+
+
+
+    def freeVar(self):
+        """
+        Get the free variables of the expression.
+
+        :return: the free variables
+        :rtype: set
+        :Examples:
+        
+        >>> from lvar import *
+        >>> from labs import *
+        >>> xy = LambdaApp(LambdaVar("x"), LambdaVar("y"))
+        >>> xy.freeVar() == {"x", "y"}
+        True
+        >>> 
+        """
+        return self.function.freeVar().union(self.argument.freeVar())
+        
+
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()

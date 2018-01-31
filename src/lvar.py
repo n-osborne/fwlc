@@ -80,6 +80,23 @@ class LambdaVar():
         """
         return self.name
 
+
+
+
+    def freeVar(self):
+        """
+        Get free variable in the expression.
+
+        :return: the name of the variable
+        :rtype: str
+        :Examples:
+
+        >>> x = LambdaVar("x")
+        >>> x.freeVar() == {"x"}
+        True
+        """
+        return set(self.name)
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()

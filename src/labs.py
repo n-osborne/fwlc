@@ -112,6 +112,26 @@ class LambdaAbs():
         
         
 
+    def freeVar(self):
+        """
+        Get free variables in the expression.
+
+        :return: the name of the free variables
+        :rtype: str
+        :Examples:
+
+        >>> from lvar import *
+        >>> from lapp import *
+        >>> LambdaAbs("x", LambdaVar("x")).freeVar() == set()
+        True
+        >>> xy = LambdaApp(LambdaVar("x"), LambdaVar("y"))
+        >>> LambdaAbs("x", xy).freeVar() == {"y"}
+        True
+        """
+        return self.body.freeVar() - set(self.binder)
+
+
+        
 if __name__ == '__main__':
     import doctest
     doctest.testmod()

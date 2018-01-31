@@ -98,6 +98,32 @@ class LambdaExp():
         return "{}".format(self.expression)
 
 
+    def freeVar(self):
+        """
+        Get the free variables of the expression.
+
+        :return: the free variables
+        :rtype: set
+        :Examples:
+        
+        >>> from lvar import *
+        >>> from lapp import *
+        >>> from labs import *
+        >>> x = LambdaVar("x")
+        >>> LambdaExp(x).freeVar() == {"x"}
+        True
+        >>> LambdaExp(LambdaApp(x, x)).freeVar() == {"x"}
+        True
+        >>> y = LambdaVar("y")
+        >>> xy = LambdaApp(x, y)
+        >>> LambdaExp(xy).freeVar() == {"x", "y"}
+        True
+        >>> LambdaExp(LambdaAbs("x", xy)).freeVar() == {"y"}
+        True
+        >>> LambdaExp(LambdaAbs("y", xy)).freeVar() == {"x"}
+        True
+        """
+        return self.expression.freeVar()
         
 if __name__ == '__main__':
     import doctest
