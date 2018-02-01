@@ -92,27 +92,35 @@ class LambdaVar():
         """
         return self.name
 
-    def rename(self, newName):
+    def rename(self, old_name, new_name):
         """
         Rename the variable.
 
-        :param newName: the new name to give
-        :type newName: str
-        :UC: newName in VAR_SET == True
+        :param old_name: the name of the variable to rename
+        :type old_name: str
+        :param new_name: the new name to give
+        :type new_name: str
+        :UC: new_name in VAR_SET == True
         :Examples:
 
         >>> x = LambdaVar("x")
-        >>> x.rename("y")
+        >>> x.rename("x", "y")
         >>> x.getName() == "y"
         True
-        >>> x.rename("?")
+        >>> x.rename("x", "z")
+        >>> x.getName() == "z"
+        False
+        >>> x.getName() == "y"
+        True
+        >>> x.rename("y", "?")
         Traceback (most recent call last):
         ...
         LambdaVarError: This is not the name of a lambda variable.
         """
         try:
-            assert newName in VAR_SET
-            self.name = newName
+            assert new_name in VAR_SET
+            if self.name == old_name:
+                self.name = new_name
         except AssertionError:
             raise LambdaVarError("This is not the name of a lambda variable.")
 
