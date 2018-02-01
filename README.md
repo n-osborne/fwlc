@@ -6,13 +6,13 @@
 
 ### LambdaAbs
 
-- [ ] rename
+- [X] rename
 - [ ] substitute
 - [ ] etaReduction
 
 ### LambdaApp
 
-- [ ] rename
+- [X] rename
 - [ ] substitution
 - [ ] betaReduction
 
@@ -20,7 +20,7 @@
 
 - [ ] applyTo
 - [ ] abstractVar
-- [ ] rename
+- [X] rename
 - [ ] betaReduction
 - [ ] etaReduction
 - [ ] isBetaNormal

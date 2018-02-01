@@ -130,6 +130,50 @@ class LambdaAbs():
         """
         return self.body.freeVar() - set(self.binder)
 
+    def rename(self, old_name, new_name):
+        """
+        Change all the occurences of old_var to new_var.
+
+        .. note::
+           Beware that the choice of a fresh new_var is at the charge of the
+           user.
+
+        :param old_name: the name of the variable to rename
+        :type old_name: str
+        :param new_name: the new name to give
+        :type new_name: str
+        :UC: new_name in VAR_SET == True
+        :Examples:
+
+        >>> from lvar import *
+        >>> from lapp import *
+        >>> identity = LambdaAbs("x", LambdaVar("x"))
+        >>> xy = LambdaApp(LambdaVar("x"), LambdaVar("y"))
+        >>> apply_y = LambdaAbs("x", xy)
+        >>> identity.rename("x", "y")
+        >>> identity.binder == "y"
+        True
+        >>> identity.body.getName() == "y"
+        True
+        >>> apply_y.rename("y", "l")
+        >>> apply_y.freeVar() == {"l"}
+        True
+        """
+        try:
+            assert new_name in VAR_SET
+            if self.binder == old_name:
+                self.binder = new_name
+            self.body.rename(old_name, new_name)
+        except AssertionError:
+            raise LambdaAbsError("This is not the name of a lambda variable.")
+
+
+
+
+
+
+
+        
 
         
 if __name__ == '__main__':

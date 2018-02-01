@@ -125,6 +125,41 @@ class LambdaApp():
         
 
 
+
+
+    def rename(self, old_name, new_name):
+        """
+        Change all the occurences of old_var to new_var.
+
+        .. note::
+           Beware that the choice of a fresh new_var is at the charge of the
+           user.
+
+        :param old_name: the name of the variable to rename
+        :type old_name: str
+        :param new_name: the new name to give
+        :type new_name: str
+        :UC: new_name in VAR_SET == True
+        :Examples:
+
+        >>> from lvar import *
+        >>> xy = LambdaApp(LambdaVar("x"), LambdaVar("y"))
+        >>> xyz = LambdaApp(LambdaApp(LambdaVar("x"), LambdaVar("y")), LambdaVar("z"))
+        >>> xy.rename("x", "u")
+        >>> xy.function.getName() == "u"
+        True
+        >>> xyz.rename("y", "o")
+        >>> xyz.function.argument.getName() == "o"
+        True
+        """
+        try:
+            assert new_name in VAR_SET
+            self.function.rename(old_name, new_name)
+            self.argument.rename(old_name, new_name)
+        except AssertionError:
+            raise LambdaAppError("This is not the name of a lambda variable.")
+
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
