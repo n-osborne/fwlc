@@ -81,6 +81,26 @@ class LambdaVar():
         return self.name
 
 
+    def __eq__(self, other):
+        """
+        This is used for strict equivalence, that is for two lambda expressions
+        that are written exactly the same.
+
+        :return:
+           - True if self == other
+           - False otherwise
+        :rtype: bool
+        :Examples:
+
+        >>> x1 = LambdaVar("x")
+        >>> x2 = LambdaVar("x")
+        >>> y = LambdaVar("y")
+        >>> x1 == x2
+        True
+        >>> x1 == y
+        False
+        """
+        return self.__repr__() == other.__repr__()
 
 
     def getName(self):

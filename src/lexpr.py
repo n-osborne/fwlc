@@ -96,6 +96,32 @@ class LambdaExp():
         (xy)
         """
         return "{}".format(self.expression)
+ 
+
+
+    def __eq__(self, other):
+        """
+        This is used for strict equivalence, that is for two lambda expressions
+        that are written exactly the same.
+
+        :return:
+           - True if self == other
+           - False otherwise
+        :rtype: bool
+        :Examples:
+
+        >>> from lvar import *
+        >>> from lapp import *
+        >>> x = LambdaExp(LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> y = LambdaExp(LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> z = LambdaExp(LambdaApp(LambdaVar("z"), LambdaVar("y")))
+        >>> x == y
+        True
+        >>> x == z
+        False
+        """
+        return self.__repr__() == other.__repr__()
+
 
 
     def freeVar(self):

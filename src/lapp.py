@@ -102,6 +102,29 @@ class LambdaApp():
         """
         return "({}".format(self.function) + "{})".format(self.argument)
 
+ 
+    def __eq__(self, other):
+        """
+        This is used for strict equivalence, that is for two lambda expressions
+        that are written exactly the same.
+
+        :return:
+           - True if self == other
+           - False otherwise
+        :rtype: bool
+        :Examples:
+
+        >>> from lvar import *
+        >>> x = LambdaApp(LambdaVar("x"), LambdaVar("y"))
+        >>> y = LambdaApp(LambdaVar("x"), LambdaVar("y"))
+        >>> z = LambdaApp(LambdaVar("z"), LambdaVar("y"))
+        >>> x == y
+        True
+        >>> x == z
+        False
+        """
+        return self.__repr__() == other.__repr__()
+
 
 
 

@@ -110,7 +110,30 @@ class LambdaAbs():
         rep += ")"
         return rep
         
-        
+ 
+    def __eq__(self, other):
+        """
+        This is used for strict equivalence, that is for two lambda expressions
+        that are written exactly the same.
+
+        :return:
+           - True if self == other
+           - False otherwise
+        :rtype: bool
+        :Examples:
+
+        >>> from lvar import *
+        >>> x = LambdaAbs("x", LambdaVar("x"))
+        >>> y = LambdaAbs("x", LambdaVar("x"))
+        >>> z = LambdaAbs("z", LambdaVar("x"))
+        >>> x == y
+        True
+        >>> x == z
+        False
+        """
+        return self.__repr__() == other.__repr__()
+
+       
 
     def freeVar(self):
         """
