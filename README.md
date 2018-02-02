@@ -8,6 +8,7 @@
 
 - [X] rename
 - [X] __eq__
+- [ ] substitute
 
 ### LambdaAbs
 
