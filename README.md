@@ -32,7 +32,7 @@
 
 - [X] __eq__
 - [X] __repr__
-- [ ] applyTo
+- [X] applyTo
 - [ ] abstractVar
 - [X] rename
 - [ ] betaReduction

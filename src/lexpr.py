@@ -159,6 +159,31 @@ class LambdaExp():
         True
         """
         return self.expression.freeVar()
+
+
+
+
+
+    def applyTo(self, other):
+        """
+        Build a Lambda application from two Lambda expression.
+
+        :param other: the Lambda expression to which we apply the actual one
+        :type other: LambdaExp
+        :return: the application of the expression to the other
+        :rtype: LambdaExp
+        :Examples:
+
+        >>> arg = LambdaExp(LambdaVar("y"))
+        >>> fun = LambdaExp(LambdaVar("x"))
+        >>> new = arg.applyTo(fun)
+        >>> print(new)
+        (xy)
+        """
+        arg = self.expression
+        fun = other.expression
+        return LambdaExp(LambdaApp(fun, arg))
+        
         
 if __name__ == '__main__':
     import doctest
