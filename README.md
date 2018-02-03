@@ -17,7 +17,7 @@
 - [X] __repr__
 - [X] rename
 - [X] substitute
-- [ ] etaReduction (?)
+- [ ] etaReduction
 
 ### LambdaApp
 
@@ -25,7 +25,7 @@
 - [X] __repr__
 - [X] rename
 - [X] substitution
-- [X] betaReduction (?)
+- [X] betaReduction
 - [X] isRedex
 
 ### LambdaExp
@@ -35,7 +35,8 @@
 - [X] applyTo
 - [ ] abstractVar
 - [X] rename
-- [ ] betaReduction
+- [ ] betaReduction (?)
+- [ ] betaEval
 - [ ] etaReduction
 - [ ] isBetaNormal
 - [ ] isAlphaEq
