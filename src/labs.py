@@ -221,7 +221,12 @@ class LambdaAbs():
         True
         """
         if self.binder != var:
-            self.body.substitute(var, expression)
+            # perhaps a silly test?
+            # the case is: /x.y which is legal but idiotic
+            if self.body == var:
+                self.body = expression
+            else:
+                self.body.substitute(var, expression)
 
 
 
