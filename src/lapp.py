@@ -197,7 +197,7 @@ class LambdaApp():
         :type var: str
         :param expression: the expression to put at the place of the variable
         :type expression: LambdaVar, LambdaApp or LambdaAbs
-        :return: the new epxression with the substitution
+        :return: the new expression with the substitution
         :rtype: LambdaVar, LambdaApp or LambdaAbs
         :UC: var_name is a free occurrence of the variable in the expression
         :Examples:
@@ -220,6 +220,44 @@ class LambdaApp():
         newArgument = self.argument.substitute(var_name, expression)
         return LambdaApp(newFunction, newArgument)
         
+    def isRedex(self):
+        """
+        Test whether a Lambda application is a redex or not.
+
+        :return:
+
+           - True if the expression is a redex
+           - False otherwise
+
+        :rtype: bool
+        :Examples:
+
+        >>> redex = LambdaApp(LambdaAbs("x", LambdaVar("x")), LambdaVar("y"))
+        >>> redex.isRedex()
+        True
+        """
+        return type(self.function) == LambdaAbs \
+            and (type(self.argument) == LambdaVar\
+            or type(self.argument) == LambdaApp\
+            or type(self.argument) == LambdaAbs)
+
+    def betaReduction(self):
+        """
+        Operate a beta-reduction on the expression.
+
+        :return: the beta-reduct of the expression
+        :rtype: LambdaVar, LambdaAbs or LambdaApp
+        :UC: the expression must be a redex
+        :Examples:
+
+        >>> redex = LambdaApp(LambdaAbs("x", LambdaVar("x")), LambdaVar("y"))
+        >>> reduct = redex.betaReduction()
+        >>> reduct == LambdaVar("y")
+        True
+        """
+        var_name = self.function.binder
+        expression = self.argument
+        return self.function.body.substitute(var_name, expression)
 
 
 if __name__ == '__main__':

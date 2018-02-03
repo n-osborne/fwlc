@@ -25,7 +25,8 @@
 - [X] __repr__
 - [X] rename
 - [X] substitution
-- [ ] betaReduction (?)
+- [X] betaReduction (?)
+- [X] isRedex
 
 ### LambdaExp
 
