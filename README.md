@@ -8,20 +8,19 @@
 
 - [X] rename
 - [X] __eq__
-- [ ] substitute
 
 ### LambdaAbs
 
 - [X] __eq__
 - [X] rename
-- [ ] substitute
+- [X] substitute
 - [ ] etaReduction
 
 ### LambdaApp
 
 - [X] __eq__
 - [X] rename
-- [ ] substitution
+- [X] substitution
 - [ ] betaReduction
 
 ### LambdaExp
