@@ -183,6 +183,49 @@ class LambdaApp():
             raise LambdaAppError("This is not the name of a lambda variable.")
 
 
+    def substitute(self, var, expression):
+        """
+        Substitute the free occurrences of a variable by an expression.
+        
+        .. note::
+
+           The verification of the fact that the variable is free is done when
+           the method is applied to a LambdaAbs.
+        
+           Although, only expression that does not occur in the instance on
+           which the method is called should be introduced to avoid problem with
+           recursive loop.
+
+        :param var: the variable to substitute
+        :type var: str
+        :param expression: the expression to put at the place of the variable
+        :type expression: LambdaVar, LambdaApp or LambdaAbs
+        :UC: var is a free occurrence of the variable in the expression
+        :Examples:
+
+        >>> from lvar import *
+        >>> xy = LambdaApp(LambdaVar("x"), LambdaVar("y"))
+        >>> np = LambdaApp(LambdaVar("n"), LambdaVar("p"))
+        >>> rs = LambdaApp(LambdaVar("r"), LambdaVar("s"))
+        >>> xy.substitute("x", np)
+        >>> xy.function == np # ((np)y)
+        True
+        >>> xy.substitute("p", rs) # ((n(rs))y)
+        >>> xy.function.argument == rs
+        True
+        """
+        if type(self.function) != lvar.LambdaVar:
+            self.function.substitute(var, expression)
+        elif type(self.function) == lvar.LambdaVar and self.function.getName() == var:
+            self.function = expression
+        if type(self.argument) != lvar.LambdaVar:
+            self.argument.substitute(var, expression)
+        elif type(self.argument) == lvar.LambdaVar and self.argument.getName() == var:
+            self.argument = expression
+        
+
+
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
