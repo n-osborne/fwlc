@@ -164,6 +164,33 @@ class LambdaVar():
         return set(self.name)
 
 
+    def substitute(self, var_name, expression):
+        """
+        Substitute a variable by the given expression.
+        
+        :param var_name: the name of the variable to be substituted
+        :type var_name: str
+        :param expression: the expression to substitute to the variable
+        :type expression: LambdaVar, LambdaApp or LambdaAbs
+        :return: the new expression
+        :rtype: LambdaVar, LambdaApp or LambdaAbs
+        :Examples:
+
+        >>> from lapp import *
+        >>> x = LambdaVar("x")
+        >>> yz = LambdaApp(LambdaVar("y"), LambdaVar("z"))
+        >>> newOne = x.substitute("x", yz)
+        >>> newOne == yz
+        True
+        >>> newTwo = x.substitute("y", yz)
+        >>> newTwo == x
+        True
+        """
+        if self.getName() == var_name:
+            return expression
+        else:
+            return self
+
 
 
 

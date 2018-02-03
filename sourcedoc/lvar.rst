@@ -31,3 +31,5 @@ Methods
 .. automethod:: lvar.LambdaVar.rename
 
 .. automethod:: lvar.LambdaVar.freeVar
+
+.. automethod:: lvar.LambdaVar.substitute

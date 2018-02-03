@@ -17,6 +17,7 @@ Classes
 .. autoclass:: lapp.LambdaApp
 
 
++++++++++
 Methods:
 +++++++++
 

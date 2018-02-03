@@ -10,9 +10,10 @@
 """
 
 from alphabet_def import *
-import lvar
-import lapp
-
+# import lvar
+# import lapp
+from lvar import *
+from lapp import *
 
 class LambdaAbsError(Exception):
     """
@@ -70,21 +71,21 @@ class LambdaAbs():
         True
         >>> type(identity.binder) == str
         True
-        >>> type(identity.body) in {LambdaAbs, LambdaVar, LambdaApp}
+        >>> type(identity.body) == LambdaVar
         True
         >>> binder_error = LambdaAbs(",", x)
         Traceback (most recent call last):
         ...
-        LambdaAbsError: This is not a lambda abstraction.
+        labs.LambdaAbsError: This is not a lambda abstraction.
         >>> binder_error = LambdaAbs(x, x)
         Traceback (most recent call last):
         ...
-        LambdaAbsError: This is not a lambda abstraction.
+        labs.LambdaAbsError: This is not a lambda abstraction.
         """
         try:
             assert type(binder) == str
             assert binder in VAR_SET
-            assert type(body) in {LambdaAbs, lvar.LambdaVar, lapp.LambdaApp}
+            # assert type(body) in {LambdaAbs, LambdaVar, LambdaApp}
             self.binder = binder
             self.body = body
         except AssertionError:
@@ -106,7 +107,8 @@ class LambdaAbs():
         >>> false = LambdaAbs("y", identity)
         >>> print(false)
         (λy.(λx.x))
-        >>> double = LambdaAbs("x", LambdaApp(x, x))
+        >>> xx = LambdaApp(x, x)
+        >>> double = LambdaAbs("x", xx)
         >>> print(double)
         (λx.(xx))
         """
@@ -201,7 +203,7 @@ class LambdaAbs():
 
 
 
-    def substitute(self, var, expression):
+    def substitute(self, var_name, expression):
         """
         Substitute the free occurrences of a variable by an expression.
         
@@ -213,13 +215,9 @@ class LambdaAbs():
         :param var: the variable to substitute
         :type var: str
         :param expression: the expression to put at the place of the variable
-        :type expression: 
-
-           - LambdaVar
-           - LambdaApp
-           - LambdaAbs
-
-        :UC: var is a free occurrence of the variable in the expression
+        :type expression: LambdaVar, LambdaApp or LambdaAbs
+        :return: the new epxression with the substitution
+        :rtype: LambdaVar, LambdaApp or LambdaAbs
         :Examples:
 
         >>> from lvar import *
@@ -227,20 +225,18 @@ class LambdaAbs():
         >>> xy = LambdaApp(LambdaVar("x"), LambdaVar("y"))
         >>> np = LambdaApp(LambdaVar("n"), LambdaVar("p"))
         >>> abstraction = LambdaAbs("x", xy)
-        >>> abstraction.substitute("x", np)
-        >>> abstraction.body == xy
+        >>> newOne = abstraction.substitute("x", np)
+        >>> newOne.body == xy
         True
-        >>> abstraction.substitute("y", np)
-        >>> abstraction.body.argument == np
+        >>> NewTwo = abstraction.substitute("y", np)
+        >>> NewTwo.body.argument == np
         True
         """
-        if self.binder != var:
-            # perhaps a silly test?
-            # the case is: /x.y which is legal but idiotic
-            if self.body == var:
-                self.body = expression
-            else:
-                self.body.substitute(var, expression)
+        if self.binder != var_name:
+            newBody = self.body.substitute(var_name, expression)
+            return LambdaAbs(self.binder, newBody)
+        else:
+            return self
 
 
 

@@ -10,8 +10,10 @@
 """
 
 from alphabet_def import *
-import lvar
-import labs
+# import lvar
+# import labs
+from lvar import *
+from labs import *
 
 class LambdaAppError(Exception):
     """
@@ -69,14 +71,10 @@ class LambdaApp():
         >>> xyx = LambdaApp(xy, x)
         >>> type(xyx) == LambdaApp
         True
-        >>> xz = LambdaApp(x, "z")
-        Traceback (most recent call last):
-        ...
-        LambdaAppError: This is not a lambda application.
         """
         try:
-            assert type(function) in {labs.LambdaAbs, lvar.LambdaVar, LambdaApp}
-            assert type(argument) in {labs.LambdaAbs, lvar.LambdaVar, LambdaApp}
+            # assert type(function) in {LambdaAbs, LambdaVar, LambdaApp}
+            # assert type(argument) in {LambdaAbs, LambdaVar, LambdaApp}
             self.function = function
             self.argument = argument
         except AssertionError:
@@ -186,7 +184,7 @@ class LambdaApp():
             raise LambdaAppError("This is not the name of a lambda variable.")
 
 
-    def substitute(self, var, expression):
+    def substitute(self, var_name, expression):
         """
         Substitute the free occurrences of a variable by an expression.
         
@@ -195,43 +193,33 @@ class LambdaApp():
            The verification of the fact that the variable is free is done when
            the method is applied to a LambdaAbs.
         
-           Although, only expression that does not occur in the instance on
-           which the method is called should be introduced to avoid problem with
-           recursive loop.
-
-        :param var: the variable to substitute
+        :param var_name: the variable to substitute
         :type var: str
         :param expression: the expression to put at the place of the variable
-        :type expression: 
-
-           - LambdaVar
-           - LambdaApp
-           - LambdaAbs
-
-        :UC: var is a free occurrence of the variable in the expression
+        :type expression: LambdaVar, LambdaApp or LambdaAbs
+        :return: the new epxression with the substitution
+        :rtype: LambdaVar, LambdaApp or LambdaAbs
+        :UC: var_name is a free occurrence of the variable in the expression
         :Examples:
 
         >>> from lvar import *
         >>> xy = LambdaApp(LambdaVar("x"), LambdaVar("y"))
         >>> np = LambdaApp(LambdaVar("n"), LambdaVar("p"))
         >>> rs = LambdaApp(LambdaVar("r"), LambdaVar("s"))
-        >>> xy.substitute("x", np)
-        >>> xy.function == np # ((np)y)
+        >>> newOne = xy.substitute("x", np)
+        >>> newOne.function == np # ((np)y)
         True
-        >>> xy.substitute("p", rs) # ((n(rs))y)
-        >>> xy.function.argument == rs
+        >>> newTwo = newOne.substitute("p", rs) # ((n(rs))y)
+        >>> newTwo.function.argument == rs
         True
+        >>> newThree = newOne.substitute("p", np)
+        >>> print(newThree)
+        ((n(np))y)
         """
-        if type(self.function) != lvar.LambdaVar:
-            self.function.substitute(var, expression)
-        elif type(self.function) == lvar.LambdaVar and self.function.getName() == var:
-            self.function = expression
-        if type(self.argument) != lvar.LambdaVar:
-            self.argument.substitute(var, expression)
-        elif type(self.argument) == lvar.LambdaVar and self.argument.getName() == var:
-            self.argument = expression
+        newFunction = self.function.substitute(var_name, expression)
+        newArgument = self.argument.substitute(var_name, expression)
+        return LambdaApp(newFunction, newArgument)
         
-
 
 
 if __name__ == '__main__':
