@@ -192,6 +192,36 @@ class LambdaAbs():
 
 
 
+    def substitute(self, var, expression):
+        """
+        Substitute the free occurrences of a variable by an expression.
+        
+        .. note::
+
+           The verification of the fact that the variable is free is done when
+           the method is applied to a LambdaAbs.
+
+        :param var: the variable to substitute
+        :type var: str
+        :param expression: the expression to put at the place of the variable
+        :type expression: LambdaVar, LambdaApp or LambdaAbs
+        :UC: var is a free occurrence of the variable in the expression
+        :Examples:
+
+        >>> from lvar import *
+        >>> from lapp import *
+        >>> xy = LambdaApp(LambdaVar("x"), LambdaVar("y"))
+        >>> np = LambdaApp(LambdaVar("n"), LambdaVar("p"))
+        >>> abstraction = LambdaAbs("x", xy)
+        >>> abstraction.substitute("x", np)
+        >>> abstraction.body == xy
+        True
+        >>> abstraction.substitute("y", np)
+        >>> abstraction.body.argument == np
+        True
+        """
+        if self.binder != var:
+            self.body.substitute(var, expression)
 
 
 
