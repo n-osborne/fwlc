@@ -24,18 +24,18 @@ class LambdaApp():
     """
     Class for Lambda Application.
 
-    :param function: the lambda expression taken as the function of the
-    application
+    :param function: the expression taken as the function of the application
     :type function: LambdaVar, LambdaApp or LambdaAbs
-    :param argument: the lambda expression taken as the argument of the
-    application
+    :param argument: the expression taken as the argument of the application
     :type argument: LambdaVar, LambdaApp or LambdaAbs
 
     :attributes:
+
     - function
     - argument
 
     :methods:
+
     - __initi__
     - __repr__
     - getFunction(self)
@@ -109,8 +109,10 @@ class LambdaApp():
         that are written exactly the same.
 
         :return:
+
            - True if self == other
            - False otherwise
+
         :rtype: bool
         :Examples:
 
@@ -155,6 +157,7 @@ class LambdaApp():
         Change all the occurences of old_var to new_var.
 
         .. note::
+
            Beware that the choice of a fresh new_var is at the charge of the
            user.
 
@@ -199,7 +202,12 @@ class LambdaApp():
         :param var: the variable to substitute
         :type var: str
         :param expression: the expression to put at the place of the variable
-        :type expression: LambdaVar, LambdaApp or LambdaAbs
+        :type expression: 
+
+           - LambdaVar
+           - LambdaApp
+           - LambdaAbs
+
         :UC: var is a free occurrence of the variable in the expression
         :Examples:
 

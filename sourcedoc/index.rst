@@ -46,7 +46,15 @@ Abstraction  :math:`(\lambda x.(x))`  (/x.(x))
    :maxdepth: 2
    :caption: Contents:
 
+   lvar
+   lapp
+   labs
+   lexpr
 
+
+
+
+   
 
 Indices and tables
 ==================

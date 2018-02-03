@@ -30,9 +30,11 @@ class LambdaVar():
     :UC: the name must be in the alphabet
 
     :attributes:
+
     - name
 
     :methods:
+    
     - __init__(self, name)
     - __repr__(self)
     - getName(self)
@@ -87,8 +89,10 @@ class LambdaVar():
         that are written exactly the same.
 
         :return:
+
            - True if self == other
            - False otherwise
+
         :rtype: bool
         :Examples:
 
@@ -158,6 +162,11 @@ class LambdaVar():
         True
         """
         return set(self.name)
+
+
+
+
+
 
 if __name__ == '__main__':
     import doctest

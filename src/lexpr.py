@@ -32,9 +32,11 @@ class LambdaExp():
     :type expression: LambdaVar, LambdaApp or LambdaAbs
 
     :attributes:
+
     - expression
 
     :methods:
+
     - __init__(self, expression : LambdaVar, LambdaApp or LambdaAbs)
     - __repr__(self)
     - applyTo(self, other : Expression)
@@ -56,7 +58,12 @@ class LambdaExp():
         Constructor for LambdaExpr class.
 
         :param expression: the lambda expression contained in the object
-        :type expression: LambdaVar, LambdaApp or LambdaAbs
+        :type expression:
+        
+           - LambdaVar
+           - LambdaApp
+           - LambdaAbs
+
         :Examples:
 
         >>> from lvar import *
@@ -105,8 +112,10 @@ class LambdaExp():
         that are written exactly the same.
 
         :return:
+
            - True if self == other
            - False otherwise
+
         :rtype: bool
         :Examples:
 

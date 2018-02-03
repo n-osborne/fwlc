@@ -30,10 +30,12 @@ class LambdaAbs():
     Class for Lambda Abstraction.
 
     :attributes:
+
     - binder (str)
     - body (LambdaVar, LambdaApp or LambdaAbs)
 
     :methods:
+
     - getBody(self)
     - getBinder(self)
     - getFreeVar(self)
@@ -51,7 +53,12 @@ class LambdaAbs():
         :param binder: the binder variable of tha lambda abstraction
         :type binder: str
         :param body: the body of the lambda abstraction
-        :type body: LambdaVar, LambdaApp or LambdaAbs
+        :type body: 
+        
+           - LambdaVar 
+           - LambdaApp
+           - LambdaAbs
+
         :UC: binder must be in the alphabet
         :Examples:
         
@@ -117,8 +124,10 @@ class LambdaAbs():
         that are written exactly the same.
 
         :return:
+
            - True if self == other
            - False otherwise
+
         :rtype: bool
         :Examples:
 
@@ -204,7 +213,12 @@ class LambdaAbs():
         :param var: the variable to substitute
         :type var: str
         :param expression: the expression to put at the place of the variable
-        :type expression: LambdaVar, LambdaApp or LambdaAbs
+        :type expression: 
+
+           - LambdaVar
+           - LambdaApp
+           - LambdaAbs
+
         :UC: var is a free occurrence of the variable in the expression
         :Examples:
 
