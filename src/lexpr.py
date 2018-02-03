@@ -10,9 +10,9 @@
 """
 
 from alphabet_def import *
-import lvar
-import labs
-import lapp
+from lvar import *
+from lapp import *
+from labs import *
 
 class LambdaExpError(Exception):
     """
@@ -79,8 +79,8 @@ class LambdaExp():
         
         """
         try:
-            assert type(expression) in (lvar.LambdaVar, lapp.LambdaApp,\
-                                        labs.LambdaAbs)
+            assert type(expression) in (LambdaVar, LambdaApp,\
+                                        LambdaAbs)
             self.expression = expression
         except AssertionError:
             raise LambdaExpError("This is not a lambda expression.")
@@ -95,10 +95,10 @@ class LambdaExp():
         >>> from lvar import *
         >>> from lapp import *
         >>> from labs import *
-        >>> x = LambdaExp(lvar.LambdaVar("x"))
+        >>> x = LambdaExp(LambdaVar("x"))
         >>> print(x)
         x
-        >>> xy = LambdaExp(lapp.LambdaApp(lvar.LambdaVar("x"), lvar.LambdaVar("y")))
+        >>> xy = LambdaExp(LambdaApp(LambdaVar("x"), LambdaVar("y")))
         >>> print(xy)
         (xy)
         """
