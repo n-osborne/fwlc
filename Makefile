@@ -1,30 +1,31 @@
-# Minimal makefile for Sphinx documentation
-#
-
-# You can set these variables from the command line.
-SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = fwlc
-PYTHONPATH    = ./src
+PROJECT=Fun With Lambda Calculus
+AUTHOR=Nicolas Osborne
+PYTHONPATH=./src
 export PYTHONPATH
-SOURCEDIR     = sourcedoc
-BUILDDIR      = doc
+SPHINXBUILD=sphinx-build
+CONFIGPATH=.
+SOURCEDOC=sourcedoc
+DOC=docs
 
-# Put it first so that "make" without argument is like "make help".
-help:
-	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-
-.PHONY: help Makefile
-
+.PHONY: clean doc archive author
 
 clean:
 	rm -f *~ */*~
 	rm -rf __pycache__ src/__pycache__
 	rm -rf $(DOC)
 	rm -f $(PROJECT).zip
+	rm -f conf.py-e
+	rm -f */*.pyc
+	rm -rf .DS_Store
+
+doc: author
+	$(SPHINXBUILD) -c $(CONFIGPATH) -b html $(SOURCEDOC) $(DOC)
+
+archive: clean
+	zip -r $(PROJECT).zip . -x "sol/*"
 
 
-# Catch-all target: route all unknown targets to Sphinx using the new
-# "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
-%: Makefile
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+author:
+	sed -i -e 's/^project =.*/project = "Module $(PROJECT)"/g' conf.py
+	sed -i -e 's/^copyright =.*/copyright = "2015-2018, $(AUTHOR)"/g' conf.py
+	sed -i -e 's/^author =.*/author = "$(AUTHOR)"/g' conf.py

@@ -1,2 +1,3 @@
-doc/
 tests
+backup*
+conf.py-e
