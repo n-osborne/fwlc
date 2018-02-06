@@ -1,0 +1,253 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>lexpr &#8212; Fun With λ Calculus 0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Fun With λ Calculus 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for lexpr</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:module name: lexpr</span>
+<span class="sd">:module author: Nicolas Osborne &lt;nicolas.osborne@etudiant.univ-lille1.fr&gt;</span>
+<span class="sd">:date: 2018, January</span>
+
+<span class="sd">:synopsis: Provide a general modelisation for lambda expressions.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">alphabet_def</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lvar</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lapp</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">labs</span> <span class="k">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="LambdaExpError"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExpError">[docs]</a><span class="k">class</span> <span class="nc">LambdaExpError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception for badly formed LambdaExp.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">msg</span></div>
+
+
+
+        
+<div class="viewcode-block" id="LambdaExp"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp">[docs]</a><span class="k">class</span> <span class="nc">LambdaExp</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    General class for lambda expressions. </span>
+
+<span class="sd">    :param expression: the lambda expression</span>
+<span class="sd">    :type expression: LambdaVar, LambdaApp or LambdaAbs</span>
+
+<span class="sd">    :attributes:</span>
+
+<span class="sd">    - expression</span>
+
+<span class="sd">    :methods:</span>
+
+<span class="sd">    - __init__(self, expression : LambdaVar, LambdaApp or LambdaAbs)</span>
+<span class="sd">    - __repr__(self)</span>
+<span class="sd">    - applyTo(self, other : Expression)</span>
+<span class="sd">    - absractVar(self, var : str)</span>
+<span class="sd">    - getContent(self)</span>
+<span class="sd">    - getFreeVar(self)</span>
+<span class="sd">    - rename(self)</span>
+<span class="sd">    - betaReduction(self)</span>
+<span class="sd">    - etaReduction(self)</span>
+<span class="sd">    - isBetaNormal(self)</span>
+<span class="sd">    - isAlphaEq(self, other : Expression)</span>
+<span class="sd">    - isBetaEq(self, other : Expression)</span>
+<span class="sd">    - isEtaEq(self, other : Expression)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LambdaExp.__init__"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor for LambdaExpr class.</span>
+
+<span class="sd">        :param expression: the lambda expression contained in the object</span>
+<span class="sd">        :type expression:</span>
+<span class="sd">        </span>
+<span class="sd">           - LambdaVar</span>
+<span class="sd">           - LambdaApp</span>
+<span class="sd">           - LambdaAbs</span>
+
+<span class="sd">        :Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; from lvar import *</span>
+<span class="sd">        &gt;&gt;&gt; x = LambdaExp(LambdaVar(&quot;x&quot;))</span>
+<span class="sd">        &gt;&gt;&gt; type(x) == LambdaExp</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; type(x.expression) == LambdaVar</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; error = LambdaExp(x)</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">        ...</span>
+<span class="sd">        LambdaExpError: This is not a lambda expression.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="n">LambdaVar</span><span class="p">,</span> <span class="n">LambdaApp</span><span class="p">,</span>\
+                                        <span class="n">LambdaAbs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">expression</span> <span class="o">=</span> <span class="n">expression</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">LambdaExpError</span><span class="p">(</span><span class="s2">&quot;This is not a lambda expression.&quot;</span><span class="p">)</span></div>
+
+
+        
+<div class="viewcode-block" id="LambdaExp.__repr__"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provide readable representation for LambdaExp.</span>
+<span class="sd">        :Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; from lvar import *</span>
+<span class="sd">        &gt;&gt;&gt; from lapp import *</span>
+<span class="sd">        &gt;&gt;&gt; from labs import *</span>
+<span class="sd">        &gt;&gt;&gt; x = LambdaExp(LambdaVar(&quot;x&quot;))</span>
+<span class="sd">        &gt;&gt;&gt; print(x)</span>
+<span class="sd">        x</span>
+<span class="sd">        &gt;&gt;&gt; xy = LambdaExp(LambdaApp(LambdaVar(&quot;x&quot;), LambdaVar(&quot;y&quot;)))</span>
+<span class="sd">        &gt;&gt;&gt; print(xy)</span>
+<span class="sd">        (xy)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="p">)</span></div>
+ 
+
+
+<div class="viewcode-block" id="LambdaExp.__eq__"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is used for strict equivalence, that is for two lambda expressions</span>
+<span class="sd">        that are written exactly the same.</span>
+
+<span class="sd">        :return:</span>
+
+<span class="sd">           - True if self == other</span>
+<span class="sd">           - False otherwise</span>
+
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; from lvar import *</span>
+<span class="sd">        &gt;&gt;&gt; from lapp import *</span>
+<span class="sd">        &gt;&gt;&gt; x = LambdaExp(LambdaApp(LambdaVar(&quot;x&quot;), LambdaVar(&quot;y&quot;)))</span>
+<span class="sd">        &gt;&gt;&gt; y = LambdaExp(LambdaApp(LambdaVar(&quot;x&quot;), LambdaVar(&quot;y&quot;)))</span>
+<span class="sd">        &gt;&gt;&gt; z = LambdaExp(LambdaApp(LambdaVar(&quot;z&quot;), LambdaVar(&quot;y&quot;)))</span>
+<span class="sd">        &gt;&gt;&gt; x == y</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; x == z</span>
+<span class="sd">        False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="LambdaExp.freeVar"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp.freeVar">[docs]</a>    <span class="k">def</span> <span class="nf">freeVar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the free variables of the expression.</span>
+
+<span class="sd">        :return: the free variables</span>
+<span class="sd">        :rtype: set</span>
+<span class="sd">        :Examples:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; from lvar import *</span>
+<span class="sd">        &gt;&gt;&gt; from lapp import *</span>
+<span class="sd">        &gt;&gt;&gt; from labs import *</span>
+<span class="sd">        &gt;&gt;&gt; x = LambdaVar(&quot;x&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; LambdaExp(x).freeVar() == {&quot;x&quot;}</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; LambdaExp(LambdaApp(x, x)).freeVar() == {&quot;x&quot;}</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; y = LambdaVar(&quot;y&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; xy = LambdaApp(x, y)</span>
+<span class="sd">        &gt;&gt;&gt; LambdaExp(xy).freeVar() == {&quot;x&quot;, &quot;y&quot;}</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; LambdaExp(LambdaAbs(&quot;x&quot;, xy)).freeVar() == {&quot;y&quot;}</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; LambdaExp(LambdaAbs(&quot;y&quot;, xy)).freeVar() == {&quot;x&quot;}</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="o">.</span><span class="n">freeVar</span><span class="p">()</span></div></div>
+        
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Fun With λ Calculus 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Nicolas Osborne.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
