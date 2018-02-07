@@ -274,6 +274,26 @@ class LambdaApp():
         
 
 
+    def betaReduction(self):
+        """
+        Operate a beta-reduction on the expression.
+
+        :return: the beta-reduct of the expression
+        :rtype: LambdaVar, LambdaAbs or LambdaApp
+        :UC: the expression must be a redex
+        :Examples:
+
+        >>> redex = LambdaApp(LambdaAbs("x", LambdaVar("x")), LambdaVar("y"))
+        >>> reduct = redex.betaReduction()
+        >>> reduct == LambdaVar("y")
+        True
+        """
+        var_name = self.function.binder
+        expression = self.argument
+        return self.function.body.substitute(var_name, expression)
+
+
+
 
 
 
