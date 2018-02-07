@@ -1,6 +1,6 @@
 # Fun With Lambda Calculus
 
-
+More complete doc [here](https://n-osborne.github.io/fwlc/)
 
 ## TODOs
 
