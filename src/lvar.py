@@ -223,6 +223,45 @@ class LambdaVar():
 
 
 
+    def normalOrderBetaEval(self):
+        """
+        Operate a beta evaluation according to the normal order.
+
+        .. note::
+
+           According to the normal order, the evaluation begins with the
+           leftmost, or the outermost, expression.
+
+        :return: the beta reduct of the expression
+        :rtype: LambdaVar, LambdaAbs or LambdaApp
+        :Examples:
+
+        """
+        # TODO
+        pass
+
+
+
+    def applicativeOrderBetaEval(self):
+        """
+        Operate a beta evaluation according to the applicative order.
+
+        .. note::
+           
+           According to the applicative order, the evaluation begins with the
+           innermost expression.
+
+        :return: the beta reduct of the expression
+        :rtype: LambdaVar, LambdaAbs or LambdaApp
+        :Examples:
+
+        """
+        # TODO
+        pass
+
+
+
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
