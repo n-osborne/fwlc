@@ -33,7 +33,9 @@ Methods:
 
 .. automethod:: lapp.LambdaApp.substitute
 
+.. automethod:: lapp.LambdaApp.isRedex
 
+.. automethod:: lapp.LambdaApp.betaReduction
 
 
 
