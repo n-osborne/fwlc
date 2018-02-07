@@ -10,8 +10,6 @@
 """
 
 from alphabet_def import *
-# import lvar
-# import lapp
 from lvar import *
 from lapp import *
 
@@ -37,15 +35,21 @@ class LambdaAbs():
 
     :methods:
 
+    - init(self, binder, body)
+    - repr(self)
+    - eq(self other)
     - getBody(self)
     - getBinder(self)
     - getFreeVar(self)
     - getBoundVar(self)
     - rename(self, old_var, new_var)
     - substitute(self, var, expression)
+    - isBetaNormal(self)
     - etaReduct(self)
 
     """
+
+
 
     def __init__(self, binder, body):
         """
@@ -92,6 +96,7 @@ class LambdaAbs():
             raise LambdaAbsError('This is not a lambda abstraction.')
 
         
+
     def __repr__(self):
         """
         Provide readable representation for LambdaAbs
@@ -119,6 +124,7 @@ class LambdaAbs():
         rep += ")"
         return rep
         
+
  
     def __eq__(self, other):
         """
@@ -163,6 +169,8 @@ class LambdaAbs():
         True
         """
         return self.body.freeVar() - set(self.binder)
+
+
 
     def rename(self, old_name, new_name):
         """
@@ -240,6 +248,32 @@ class LambdaAbs():
 
 
 
+    def isBetaNormal(self):
+        """
+        Test whether a Lambda expression is in its beta normal form.
+
+        :return: 
+
+           - True if the expression is its beta normal form
+           - False otherwise
+
+        :rtype: bool
+        :Examples:
+
+        >>> from lapp import *
+        >>> redex = LambdaApp(LambdaAbs("x", LambdaVar("x")), LambdaVar("y"))
+        >>> type(redex.function.body) == LambdaVar
+        True
+        >>> LambdaAbs("y", redex).isBetaNormal()
+        False
+        >>> redex.isBetaNormal()
+        False
+        >>> redex.isRedex()
+        True
+        >>> LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y"))).isBetaNormal()
+        True
+        """
+        return self.body.isBetaNormal()
 
         
 

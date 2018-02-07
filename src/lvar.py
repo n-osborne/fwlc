@@ -21,6 +21,7 @@ class LambdaVarError(Exception):
 
 
 
+
 class LambdaVar():
     """
     Class for Lambda Variable.
@@ -39,10 +40,12 @@ class LambdaVar():
     - __repr__(self)
     - getName(self)
     - rename(self, newName)
+    - substitute(self, var_name, expression)
     - getFreeVar(self)
-    - 
-
+    - isBetaNormal(self)
     """
+
+
 
     def __init__(self, name):
         """
@@ -71,6 +74,8 @@ class LambdaVar():
         except AssertionError:
             raise LambdaVarError('This is not a lambda variable.')
 
+
+
     def __repr__(self):
         """
         Provide a readable representation of LambdaVar.
@@ -81,6 +86,7 @@ class LambdaVar():
         x
         """
         return self.name
+
 
 
     def __eq__(self, other):
@@ -107,6 +113,7 @@ class LambdaVar():
         return self.__repr__() == other.__repr__()
 
 
+
     def getName(self):
         """
         Get the name of the variable.
@@ -115,6 +122,8 @@ class LambdaVar():
         True
         """
         return self.name
+
+
 
     def rename(self, old_name, new_name):
         """
@@ -149,6 +158,7 @@ class LambdaVar():
             raise LambdaVarError("This is not the name of a lambda variable.")
 
 
+
     def freeVar(self):
         """
         Get free variable in the expression.
@@ -162,6 +172,7 @@ class LambdaVar():
         True
         """
         return set(self.name)
+
 
 
     def substitute(self, var_name, expression):
@@ -192,6 +203,23 @@ class LambdaVar():
             return self
 
 
+
+    def isBetaNormal(self):
+        """
+        Test whether a Lambda expression is in its beta normal form.
+
+        :return: 
+
+           - True if the expression is its beta normal form
+           - False otherwise
+
+        :rtype: bool
+        :Examples:
+
+        >>> LambdaVar("x").isBetaNormal()
+        True
+        """
+        return True
 
 
 

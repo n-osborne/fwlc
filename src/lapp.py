@@ -4,16 +4,16 @@
 """
 :module name: lapp
 :module author: Nicolas Osborne <nicolas.osborne@etudiant.univ-lille1.fr>
-:date: 2018, January
+:date: 2018
 
 :synopsis: Provide modelisation for lambda expressions of the form application.
 """
 
 from alphabet_def import *
-# import lvar
-# import labs
 from lvar import *
 from labs import *
+
+
 
 class LambdaAppError(Exception):
     """
@@ -21,6 +21,9 @@ class LambdaAppError(Exception):
     """
     def __init__(self, msg):
         self.message = msg
+
+
+
 
 class LambdaApp():
     """
@@ -49,6 +52,7 @@ class LambdaApp():
     - betaReduct(self)
 
     """
+
 
 
     def __init__(self, function, argument):
@@ -80,6 +84,8 @@ class LambdaApp():
         except AssertionError:
             raise LambdaAppError('This is not a lambda application.')
 
+
+
     def __repr__(self):
         """
         Provide a readable representaition for LambdaApp.
@@ -101,6 +107,7 @@ class LambdaApp():
         return "({}".format(self.function) + "{})".format(self.argument)
 
  
+
     def __eq__(self, other):
         """
         This is used for strict equivalence, that is for two lambda expressions
@@ -127,8 +134,6 @@ class LambdaApp():
 
 
 
-
-
     def freeVar(self):
         """
         Get the free variables of the expression.
@@ -145,8 +150,6 @@ class LambdaApp():
         >>> 
         """
         return self.function.freeVar().union(self.argument.freeVar())
-        
-
 
 
 
@@ -182,6 +185,7 @@ class LambdaApp():
             self.argument.rename(old_name, new_name)
         except AssertionError:
             raise LambdaAppError("This is not the name of a lambda variable.")
+
 
 
     def substitute(self, var_name, expression):
@@ -220,6 +224,8 @@ class LambdaApp():
         newArgument = self.argument.substitute(var_name, expression)
         return LambdaApp(newFunction, newArgument)
         
+
+
     def isRedex(self):
         """
         Test whether a Lambda application is a redex or not.
@@ -241,23 +247,34 @@ class LambdaApp():
             or type(self.argument) == LambdaApp\
             or type(self.argument) == LambdaAbs)
 
-    def betaReduction(self):
-        """
-        Operate a beta-reduction on the expression.
 
-        :return: the beta-reduct of the expression
-        :rtype: LambdaVar, LambdaAbs or LambdaApp
-        :UC: the expression must be a redex
+
+    def isBetaNormal(self):
+        """
+        Test whether a Lambda expression is in its beta normal form.
+
+        :return: 
+
+           - True if the expression is its beta normal form
+           - False otherwise
+
+        :rtype: bool
         :Examples:
 
         >>> redex = LambdaApp(LambdaAbs("x", LambdaVar("x")), LambdaVar("y"))
-        >>> reduct = redex.betaReduction()
-        >>> reduct == LambdaVar("y")
+        >>> redex.isBetaNormal()
+        False
+        >>> LambdaApp(LambdaVar("x"), LambdaVar("y")).isBetaNormal()
         True
+        >>> LambdaApp(LambdaVar("x"), redex).isBetaNormal()
+        False
         """
-        var_name = self.function.binder
-        expression = self.argument
-        return self.function.body.substitute(var_name, expression)
+        return (not self.isRedex()) and (self.function.isBetaNormal() and\
+                                       self.argument.isBetaNormal())
+        
+
+
+
 
 
 if __name__ == '__main__':
