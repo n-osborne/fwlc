@@ -303,9 +303,17 @@ class LambdaApp():
            According to the normal order, the evaluation begins with the
            leftmost, or the outermost, expression.
 
-        :return: the beta reduct of the expression
-        :rtype: LambdaVar, LambdaAbs or LambdaApp
+        :return: the beta reduct of the expression and all the intermediate forms
+        :rtype: list of LambdaVar, LambdaAbs or LambdaApp
         :Examples:
+
+        >>> abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> redex1 = LambdaApp(abs1, LambdaApp(LambdaVar("z"), LamndaVar("t")))
+        >>> rs = LambdaApp(LambdaVar("r"), LamndaVar("s"))
+        >>> redex2 = LambdaApp(LambdaAbs("z", redex1), rs)
+        >>> result = normalOrderBetaEval(redex2)
+        >>> print(result)
+        [((λx.(xy))((rs)t)), (((rs)t)y), (((rs)t)y)]
 
         """
         # TODO

@@ -286,10 +286,9 @@ class LambdaAbs():
            According to the normal order, the evaluation begins with the
            leftmost, or the outermost, expression.
 
-        :return: the beta reduct of the expression
-        :rtype: LambdaVar, LambdaAbs or LambdaApp
+        :return: the beta reduct of the expression and all the intermediate forms
+        :rtype: tuple
         :Examples:
-
         """
         # TODO
         pass
