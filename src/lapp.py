@@ -303,26 +303,39 @@ class LambdaApp():
            According to the normal order, the evaluation begins with the
            leftmost, or the outermost, expression.
 
+           If expression is not a redex, choice is made here to evaluate from
+           the right to the left (function then argument)
+    
         :return: all the steps of the beta evaluation
         :rtype: list of LambdaVar, LambdaAbs or LambdaApp
         :UC: lambda expression must have been renamed according to the
         Barenbergt convention.
         :Examples:
 
-        >>> abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> # First test
+        ... abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
         >>> redex1 = LambdaApp(abs1, LambdaApp(LambdaVar("z"), LamdaVar("t")))
         >>> rs = LambdaApp(LambdaVar("r"), LamdaVar("s"))
         >>> expr1 = LambdaApp(LambdaAbs("z", redex1), rs)
         >>> result1 = normalOrderBetaEval(expr1)
         >>> print(result1)
         [((λz.((λx.(xy))(zt)))(rs)), ((λx.(xy))((rs)t)), (((rs)t)y), (((rs)t)y)]
-        >>> abs2 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> # Second test
+        ... abs2 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
         >>> abs3 = LambdaAbs("z", LambdaApp(LambdaVar("z"), LambdaVar("z")))
         >>> redex2 = LambdaApp(abs3, LambdaVar("t"))
         >>> expr2 = LambdaApp(abs2, redex2)
         >>> result2 = normalOrderBetaEval(expr2)
         >>> print(result2)
         [((λx.(xy))((λz.(zz))t)), (((λz.(zz))t)y), ((tt)y)]
+        >>> # Third test
+        ... double = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("x")))
+        >>> applyTo_t = LambdaAbs("z", LambdaApp(LambdaVar("t"), LambdaVar("z")))
+        >>> future_tr = LambdaApp(applyTo_t, LambdaVar("r"))
+        >>> expr3 = LambdaApp(double, future_tr)
+        >>> result3 = normalOrderBetaEval(expr3)
+        >>> print(result3)
+        [((λx.(xx))((λz.(tz))r)), (((λz.(tz))r)((λz.(tz))r)), ((tr)((λz.(tz))r)), ((tr)(tr))]
         """
         # TODO
         pass
