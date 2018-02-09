@@ -303,18 +303,26 @@ class LambdaApp():
            According to the normal order, the evaluation begins with the
            leftmost, or the outermost, expression.
 
-        :return: the beta reduct of the expression and all the intermediate forms
+        :return: all the steps of the beta evaluation
         :rtype: list of LambdaVar, LambdaAbs or LambdaApp
+        :UC: lambda expression must have been renamed according to the
+        Barenbergt convention.
         :Examples:
 
         >>> abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
-        >>> redex1 = LambdaApp(abs1, LambdaApp(LambdaVar("z"), LamndaVar("t")))
-        >>> rs = LambdaApp(LambdaVar("r"), LamndaVar("s"))
-        >>> redex2 = LambdaApp(LambdaAbs("z", redex1), rs)
-        >>> result = normalOrderBetaEval(redex2)
-        >>> print(result)
-        [((λx.(xy))((rs)t)), (((rs)t)y), (((rs)t)y)]
-
+        >>> redex1 = LambdaApp(abs1, LambdaApp(LambdaVar("z"), LamdaVar("t")))
+        >>> rs = LambdaApp(LambdaVar("r"), LamdaVar("s"))
+        >>> expr1 = LambdaApp(LambdaAbs("z", redex1), rs)
+        >>> result1 = normalOrderBetaEval(expr1)
+        >>> print(result1)
+        [((λz.((λx.(xy))(zt)))(rs)), ((λx.(xy))((rs)t)), (((rs)t)y), (((rs)t)y)]
+        >>> abs2 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> abs3 = LambdaAbs("z", LambdaApp(LambdaVar("z"), LambdaVar("z")))
+        >>> redex2 = LambdaApp(abs3, LambdaVar("t"))
+        >>> expr2 = LambdaApp(abs2, redex2)
+        >>> result2 = normalOrderBetaEval(expr2)
+        >>> print(result2)
+        [((λx.(xy))((λz.(zz))t)), (((λz.(zz))t)y), ((tt)y)]
         """
         # TODO
         pass
