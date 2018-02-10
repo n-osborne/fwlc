@@ -35,8 +35,11 @@ Methods:
 
 .. automethod:: lapp.LambdaApp.isRedex
 
+.. automethod:: lapp.LambdaApp.isBetaNormal
+
 .. automethod:: lapp.LambdaApp.betaReduction
 
+.. automethod:: lapp.LambdaApp.oneStepNOBetaEval
 
-
+.. automethod:: lapp.LambdaApp.oneStepAOBetaEval
 		

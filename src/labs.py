@@ -248,14 +248,14 @@ class LambdaAbs():
 
 
 
-    def isRedex(self):
-        """
-        Fill the contract for Beta evaluation.
+    # def isRedex(self):
+    #     """
+    #     Fill the contract for Beta evaluation -- a LambdaAbs is never a redex.
 
-        :return: false
-        :rtype: boolean
-        """
-        return false
+    #     :return: false
+    #     :rtype: boolean
+    #     """
+    #     return false
 
 
 

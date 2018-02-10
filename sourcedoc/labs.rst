@@ -32,4 +32,8 @@ Methods:
 
 .. automethod:: labs.LambdaAbs.substitute			
 
-	       
+.. automethod:: labs.LambdaAbs.isBetaNormal
+
+.. automethod:: labs.LambdaAbs.oneStepNOBetaEval
+
+.. automethod:: labs.LambdaAbs.oneStepAOBetaEval

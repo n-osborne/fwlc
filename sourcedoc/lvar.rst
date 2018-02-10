@@ -33,3 +33,5 @@ Methods
 .. automethod:: lvar.LambdaVar.freeVar
 
 .. automethod:: lvar.LambdaVar.substitute
+
+.. automethod:: lvar.LambdaVar.isBetaNormal

@@ -204,14 +204,14 @@ class LambdaVar():
 
 
 
-    def isRedex(self):
-        """
-        Fill the contract for Beta evaluation.
+    # def isRedex(self):
+    #     """
+    #     Fill the contract for Beta evaluation.
             
-        :return: false
-        :rtype: boolean
-        """
-        return false
+    #     :return: false
+    #     :rtype: boolean
+    #     """
+    #     return false
 
 
 
