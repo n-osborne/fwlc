@@ -182,8 +182,7 @@ class LambdaAbs():
 
         """
         # TODO: doctests
-        return self.body.bounVar().add(self.binder)
-
+        return set(self.binder).union(self.body.boundVar())
  
 
     def rename(self, old_name, new_name):
@@ -259,17 +258,6 @@ class LambdaAbs():
             return LambdaAbs(self.binder, newBody)
         else:
             return self
-
-
-
-    # def isRedex(self):
-    #     """
-    #     Fill the contract for Beta evaluation -- a LambdaAbs is never a redex.
-
-    #     :return: false
-    #     :rtype: boolean
-    #     """
-    #     return false
 
 
 
