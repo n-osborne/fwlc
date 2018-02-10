@@ -298,6 +298,14 @@ class LambdaApp():
         """
         Perform one step of a normal order Beta-evaluation.
 
+        .. note::
+
+           According to the normal order, the evaluation begins with the
+           leftmost, or the outermost, expression.
+
+           If expression is not a redex, choice is made here to evaluate from
+           the right to the left (function then argument)
+ 
         :return: he one step Beta-evaluation of the expression.
         :rtype: LambdaAbs, LambdaApp or LambdaVar
         :UC: Expression must not be in beta normal form
@@ -347,6 +355,7 @@ class LambdaApp():
         >>> print(result3_3)
         ((tr)(tr))
         """
+        # TODO exception handling
         if self.isRedex():
             return self.betaReduction()
         elif not self.function.isBetaNormal():
@@ -356,6 +365,76 @@ class LambdaApp():
             return LambdaApp(self.function,\
                              self.argument.oneStepNOBetaEval())
 
+
+
+    def oneStepAOBetaEval(self):
+        """
+        Perform one step of beta evaluation in applicative order.
+
+        .. note::
+           
+           According to the applicative order, the evaluation begins with the
+           innermost expression.
+        
+           Here, the choice is made to begin with the argument of the Lambda
+           Application, that is from the right to the left.
+
+        :return: the one step Beta-evaluation of the expression
+        :rtype: LambdaVar, LambdaAbs or LambdaApp
+        :UC: self must not be in its beta normal form
+        :Examples:
+ 
+        >>> # First test - step by step beta evaluation
+        ... abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> redex1 = LambdaApp(abs1, LambdaApp(LambdaVar("z"), LambdaVar("t")))
+        >>> rs = LambdaApp(LambdaVar("r"), LambdaVar("s"))
+        >>> expr1 = LambdaApp(LambdaAbs("z", redex1), rs)
+        >>> print(expr1)
+        ((λz.((λx.(xy))(zt)))(rs))
+        >>> result1_1 = expr1.oneStepAOBetaEval()
+        >>> print(result1_1)
+        ((λz.((zt)y))(rs))
+        >>> result1_2 = result1_1.oneStepAOBetaEval()
+        >>> print(result1_2)
+        (((rs)t)y)
+        >>> # Second test - step by step beta evaluation
+        ... abs2 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> abs3 = LambdaAbs("z", LambdaApp(LambdaVar("z"), LambdaVar("z")))
+        >>> redex2 = LambdaApp(abs3, LambdaVar("t"))
+        >>> expr2 = LambdaApp(abs2, redex2)
+        >>> print(expr2)
+        ((λx.(xy))((λz.(zz))t))
+        >>> result2_1 = expr2.oneStepAOBetaEval()
+        >>> print(result2_1)
+        ((λx.(xy))(tt))
+        >>> result2_2 = result2_1.oneStepAOBetaEval()
+        >>> print(result2_2)
+        ((tt)y)
+        >>> # Third test - step by step beta evaluation
+        ... double = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("x")))
+        >>> applyTo_t = LambdaAbs("z", LambdaApp(LambdaVar("t"), LambdaVar("z")))
+        >>> future_tr = LambdaApp(applyTo_t, LambdaVar("r"))
+        >>> expr3 = LambdaApp(double, future_tr)
+        >>> print(expr3)
+        ((λx.(xx))((λz.(tz))r))
+        >>> result3_1 = expr3.oneStepAOBetaEval()
+        >>> print(result3_1)
+        ((λx.(xx))(tr))
+        >>> result3_2 = result3_1.oneStepAOBetaEval()
+        >>> print(result3_2)
+        ((tr)(tr))
+        """    
+        # TODO exception handling
+        if not self.argument.isBetaNormal():
+            return LambdaApp(self.function,\
+                             self.argument.oneStepAOBetaEval())
+        elif not self.function.isBetaNormal():
+            return LambdaApp(self.function.oneStepAOBetaEval(),\
+                             self.argument)
+        else:
+            return self.betaReduction()
+
+        
 
     # def normalOrderBetaEval(self):
     #     """
