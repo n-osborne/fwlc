@@ -288,7 +288,7 @@ class LambdaAbs():
 
 
 
-     def oneStepNOBetaEval(self):
+    def oneStepNOBetaEval(self):
         """
         Preform one step of a normal order Beta-evaluation.
 
@@ -296,6 +296,7 @@ class LambdaAbs():
         :rtype: LambdaAbs
         :Examples:
 
+        >>> from lapp import *
         >>> abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
         >>> redex = LambdaApp(abs1, LambdaApp(LambdaVar("s"), LambdaVar("t")))
         >>> expr1 = LambdaAbs("z", redex)
