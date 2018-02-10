@@ -183,6 +183,42 @@ class LambdaExp():
         return LambdaExp(LambdaApp(fun, arg))
         
         
+
+    def betaEvalWithTraces(self, evalMode):
+        """
+        Perform a complete beta evaluation.
+        
+        :param evalMode: a one step beta evaluation method
+        :type evalMode: method
+        :return: the list of all the steps
+        :rtype: list
+        :UC: all the possible type of LambdaExpr.expression should implement
+        evalMode
+        :Examples:
+        
+        >>> # First test - normal order
+        ... double = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("x")))
+        >>> applyTo_t = LambdaAbs("z", LambdaApp(LambdaVar("t"), LambdaVar("z")))
+        >>> future_tr = LambdaApp(applyTo_t, LambdaVar("r"))
+        >>> expr = LambdaApp(double, future_tr)
+        >>> print(expr)
+        ((λx.(xx))((λz.(tz))r))
+        >>> result_1 = expr.betaEvalWithTraces(oneStepNOBetaEval)
+        >>> print(result_1)
+        [((λx.(xx))((λz.(tz))r)), (((λz.(tz))r)((λz.(tz))r)), ((tr)((λz.(tz))r)), ((tr)(tr))]
+        >>> result_2 = expr.betaEvalWithTraces(oneStepAOBetaEval)
+        >>> print(result_2)
+        [((λx.(xx))((λz.(tz))r)), ((λx.(xx))(tr)), ((tr)(tr))]
+        """
+        # DONE: docstring
+        # DONE: doctests
+        # TODO: function that enforce Barendregt's convention
+        # TODO: implementation
+        pass
+
+
+
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
