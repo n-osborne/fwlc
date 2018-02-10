@@ -234,6 +234,21 @@ class LambdaVar():
 
 
 
+    def oneStepNOBetaEval(self):
+        """
+        Preform one step of a normal order Beta-evaluation.
+
+        .. note::
+           this is only here to fill the contract of normal order beta
+           evaluation.
+
+        :return: self
+        :rtype: LambdaVar
+        """
+        return self
+
+
+
     def normalOrderBetaEval(self):
         """
         Operate a beta evaluation according to the normal order.
