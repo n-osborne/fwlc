@@ -153,6 +153,31 @@ class LambdaApp():
 
 
 
+    def boundVar(self):
+        """
+        Get the set of bound variables in the expression.
+
+        :return: the set of the bound variables
+        :rtype: set
+        :Examples:
+
+        """
+        # TODO: doctests
+        return self.function.boundVar().union(self.argument.boundVar())
+
+
+
+    def freshVar(self):
+        """
+        Find a variable that does not occur in the expression.
+
+        :return: a fresh variable
+        :rtype: str
+        """
+        return list(alphabet - set(self.__repr__()))[0]
+
+
+
     def rename(self, old_name, new_name):
         """
         Change all the occurences of old_var to new_var.
@@ -274,6 +299,22 @@ class LambdaApp():
         
 
 
+    def avoidNameClash(self):
+        """
+        Rename the bound variables in the function that are free in the
+        argument.
+
+        :UC: expression is a redex
+        """
+        boundVarSet = self.function.body.boundVar()
+        freeVarSet = self.argument.freeVar()
+        nameClash = boundVarSet.intersection(freeVarSet)
+        if nameClash != {}:
+            for var in nameClash:
+                self.function.body.rename(var, self.freshVar())
+        
+
+
     def betaReduction(self):
         """
         Operate a beta-reduction on the expression.
@@ -288,6 +329,8 @@ class LambdaApp():
         >>> reduct == LambdaVar("y")
         True
         """
+        # TODO test name clash 
+        self.avoidNameClash()
         var_name = self.function.binder
         expression = self.argument
         return self.function.body.substitute(var_name, expression)
