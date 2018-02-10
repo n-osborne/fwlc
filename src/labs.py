@@ -290,7 +290,7 @@ class LambdaAbs():
 
     def oneStepNOBetaEval(self):
         """
-        Preform one step of a normal order Beta-evaluation.
+        Preform one step of a Beta-evaluation in Normal Order.
 
         :return: the one step Beta-evaluation of the expression
         :rtype: LambdaAbs
@@ -303,8 +303,12 @@ class LambdaAbs():
         >>> print(expr1.oneStepNOBetaEval())
         (λz.((st)y))
         """
-        # TODO exception handling
-        return LambdaAbs(self.binder, self.body.oneStepNOBetaEval())
+        try:
+            assert not self.isBetaNormal()
+            return LambdaAbs(self.binder, self.body.oneStepNOBetaEval())
+        except AssertionError:
+            raise LambdaAppError(\
+                "Can not carry on beta evaluation on a beta normal form")
 
 
     
