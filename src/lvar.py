@@ -174,6 +174,18 @@ class LambdaVar():
         return set(self.name)
 
 
+    def boundVar(self):
+        """
+        Get the set of bound variables in the expression.
+
+        :return: the set of the bound variables
+        :rtype: set
+        :Examples:
+
+        """
+        return set()
+
+
 
     def substitute(self, var_name, expression):
         """
