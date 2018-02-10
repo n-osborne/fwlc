@@ -286,7 +286,25 @@ class LambdaAbs():
         """
         return self.body.isBetaNormal()
 
-        
+
+
+     def oneStepNOBetaEval(self):
+        """
+        Preform one step of a normal order Beta-evaluation.
+
+        :return: the one step Beta-evaluation of the expression
+        :rtype: LambdaAbs
+        :Examples:
+
+        >>> abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> redex = LambdaApp(abs1, LambdaApp(LambdaVar("s"), LambdaVar("t")))
+        >>> expr1 = LambdaAbs("z", redex)
+        >>> print(expr1.oneStepNOBetaEval())
+        (λz.((st)y))
+        """
+        return LambdaAbs(self.binder, self.body.oneStepNOBetaEval())
+
+       
 
     def normalOrderBetaEval(self):
         """
