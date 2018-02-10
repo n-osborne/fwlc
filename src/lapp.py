@@ -294,6 +294,62 @@ class LambdaApp():
 
 
 
+    def oneStepNOBetaEval(self):
+        """
+        Perform one step of a normal order Beta-evaluation.
+
+        :return: he one step Beta-evaluation of the expression.
+        :rtype: LambdaAbs, LambdaApp or LambdaVar
+        :Examples:
+
+
+        >>> # First test - step by step beta evaluation
+        ... abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> redex1 = LambdaApp(abs1, LambdaApp(LambdaVar("z"), LamdaVar("t")))
+        >>> rs = LambdaApp(LambdaVar("r"), LamdaVar("s"))
+        >>> expr1 = LambdaApp(LambdaAbs("z", redex1), rs)
+        >>> print(expr1)
+        ((λz.((λx.(xy))(zt)))(rs))
+        >>> result1_1 = expr1.oneStepNOBetaEval()
+        >>> print(result1_1)
+        ((λx.(xy))((rs)t))
+        >>> result1_2 = result1_1.oneStepNOBetaEval()
+        >>> print(result1_2)
+        (((rs)t)y)
+        >>> # Second test - step by step beta evaluation
+        ... abs2 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> abs3 = LambdaAbs("z", LambdaApp(LambdaVar("z"), LambdaVar("z")))
+        >>> redex2 = LambdaApp(abs3, LambdaVar("t"))
+        >>> expr2 = LambdaApp(abs2, redex2)
+        >>> print(expr2)
+        ((λx.(xy))((λz.(zz))t))
+        >>> result2_1 = expr2.oneStepNOBetaEval()
+        >>> print(result2_1)
+        (((λz.(zz))t)y)
+        >>> result2_2 = result2_1.oneStepNOBetaEval()
+        >>> print(result2_2)
+        ((tt)y)
+        >>> # Third test - step by step beta evaluation
+        ... double = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("x")))
+        >>> applyTo_t = LambdaAbs("z", LambdaApp(LambdaVar("t"), LambdaVar("z")))
+        >>> future_tr = LambdaApp(applyTo_t, LambdaVar("r"))
+        >>> expr3 = LambdaApp(double, future_tr)
+        >>> print(expr3)
+        ((λx.(xx))((λz.(tz))r))
+        >>> result3_1 = expr3.oneStepNOBetaEval()
+        >>> print(result3_1)
+        (((λz.(tz))r)((λz.(tz))r))
+        >>> result3_2 = result3_1.oneStepNOBetaEval()
+        >>> print(result3_2
+        ((tr)((λz.(tz))r))
+        >>> result3_3 = result3_2.oneStepNOBetaEval()
+        >>> print(result3_3)
+        ((tr)(tr))
+        """
+        # TODO
+        pass
+
+
     def normalOrderBetaEval(self):
         """
         Operate a beta evaluation according to the normal order.
