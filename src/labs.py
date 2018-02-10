@@ -172,6 +172,20 @@ class LambdaAbs():
 
 
 
+    def boundVar(self):
+        """
+        Get the set of bound variables in the expression.
+
+        :return: the set of the bound variables
+        :rtype: set
+        :Examples:
+
+        """
+        # TODO: doctests
+        return self.body.bounVar().add(self.binder)
+
+ 
+
     def rename(self, old_name, new_name):
         """
         Change all the occurences of old_var to new_var.
