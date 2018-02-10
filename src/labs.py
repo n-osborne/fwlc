@@ -308,7 +308,7 @@ class LambdaAbs():
             return LambdaAbs(self.binder, self.body.oneStepNOBetaEval())
         except AssertionError:
             raise LambdaAbsError(\
-                "Can not carry on beta evaluation on a beta normal form")
+                "Can not carry on beta evaluation on a beta normal form.")
 
 
     
@@ -318,6 +318,7 @@ class LambdaAbs():
 
         :return: the one step Beta-evaluation of the expression
         :rtype: LambdaAbs
+        :UC: self must not be in its normal beta form
         :Examples:
 
         >>> from lapp import *
@@ -326,14 +327,13 @@ class LambdaAbs():
         >>> expr1 = LambdaAbs("z", redex)
         >>> print(expr1.oneStepNOBetaEval())
         (λz.((st)y))
-        :UC: self must not be in its normal beta form
         """
         try:
             assert not self.isBetaNormal()
             return LambdaAbs(self.binder, self.body.oneStepAOBetaEval())
         except AssertionError:
             raise LambdaAbsError(\
-                "Can not carry on beta evaluation on a beta normal form")
+                "Can not carry on beta evaluation on a beta normal form.")
     
 
     def normalOrderBetaEval(self):
