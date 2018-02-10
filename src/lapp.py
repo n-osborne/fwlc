@@ -300,13 +300,14 @@ class LambdaApp():
 
         :return: he one step Beta-evaluation of the expression.
         :rtype: LambdaAbs, LambdaApp or LambdaVar
+        :UC: Expression must not be in beta normal form
         :Examples:
 
 
         >>> # First test - step by step beta evaluation
         ... abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
-        >>> redex1 = LambdaApp(abs1, LambdaApp(LambdaVar("z"), LamdaVar("t")))
-        >>> rs = LambdaApp(LambdaVar("r"), LamdaVar("s"))
+        >>> redex1 = LambdaApp(abs1, LambdaApp(LambdaVar("z"), LambdaVar("t")))
+        >>> rs = LambdaApp(LambdaVar("r"), LambdaVar("s"))
         >>> expr1 = LambdaApp(LambdaAbs("z", redex1), rs)
         >>> print(expr1)
         ((λz.((λx.(xy))(zt)))(rs))
@@ -340,80 +341,86 @@ class LambdaApp():
         >>> print(result3_1)
         (((λz.(tz))r)((λz.(tz))r))
         >>> result3_2 = result3_1.oneStepNOBetaEval()
-        >>> print(result3_2
+        >>> print(result3_2)
         ((tr)((λz.(tz))r))
         >>> result3_3 = result3_2.oneStepNOBetaEval()
         >>> print(result3_3)
         ((tr)(tr))
         """
-        # TODO
-        pass
+        if self.isRedex():
+            return self.betaReduction()
+        elif not self.function.isBetaNormal():
+            return LambdaApp(self.function.oneStepNOBetaEval(),\
+                             self.argument)
+        else:
+            return LambdaApp(self.function,\
+                             self.argument.oneStepNOBetaEval())
 
 
-    def normalOrderBetaEval(self):
-        """
-        Operate a beta evaluation according to the normal order.
+    # def normalOrderBetaEval(self):
+    #     """
+    #     Operate a beta evaluation according to the normal order.
 
-        .. note::
+    #     .. note::
 
-           According to the normal order, the evaluation begins with the
-           leftmost, or the outermost, expression.
+    #        According to the normal order, the evaluation begins with the
+    #        leftmost, or the outermost, expression.
 
-           If expression is not a redex, choice is made here to evaluate from
-           the right to the left (function then argument)
+    #        If expression is not a redex, choice is made here to evaluate from
+    #        the right to the left (function then argument)
     
-        :return: all the steps of the beta evaluation
-        :rtype: list of LambdaVar, LambdaAbs or LambdaApp
-        :UC: lambda expression must have been renamed according to the
-        Barenbergt convention.
-        :Examples:
+    #     :return: all the steps of the beta evaluation
+    #     :rtype: list of LambdaVar, LambdaAbs or LambdaApp
+    #     :UC: lambda expression must have been renamed according to the
+    #     Barenbergt convention.
+    #     :Examples:
 
-        >>> # First test
-        ... abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
-        >>> redex1 = LambdaApp(abs1, LambdaApp(LambdaVar("z"), LamdaVar("t")))
-        >>> rs = LambdaApp(LambdaVar("r"), LamdaVar("s"))
-        >>> expr1 = LambdaApp(LambdaAbs("z", redex1), rs)
-        >>> result1 = normalOrderBetaEval(expr1)
-        >>> print(result1)
-        [((λz.((λx.(xy))(zt)))(rs)), ((λx.(xy))((rs)t)), (((rs)t)y), (((rs)t)y)]
-        >>> # Second test
-        ... abs2 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
-        >>> abs3 = LambdaAbs("z", LambdaApp(LambdaVar("z"), LambdaVar("z")))
-        >>> redex2 = LambdaApp(abs3, LambdaVar("t"))
-        >>> expr2 = LambdaApp(abs2, redex2)
-        >>> result2 = normalOrderBetaEval(expr2)
-        >>> print(result2)
-        [((λx.(xy))((λz.(zz))t)), (((λz.(zz))t)y), ((tt)y)]
-        >>> # Third test
-        ... double = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("x")))
-        >>> applyTo_t = LambdaAbs("z", LambdaApp(LambdaVar("t"), LambdaVar("z")))
-        >>> future_tr = LambdaApp(applyTo_t, LambdaVar("r"))
-        >>> expr3 = LambdaApp(double, future_tr)
-        >>> result3 = normalOrderBetaEval(expr3)
-        >>> print(result3)
-        [((λx.(xx))((λz.(tz))r)), (((λz.(tz))r)((λz.(tz))r)), ((tr)((λz.(tz))r)), ((tr)(tr))]
-        """
-        # TODO
-        pass
+    #     >>> # First test
+    #     ... abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+    #     >>> redex1 = LambdaApp(abs1, LambdaApp(LambdaVar("z"), LamdaVar("t")))
+    #     >>> rs = LambdaApp(LambdaVar("r"), LamdaVar("s"))
+    #     >>> expr1 = LambdaApp(LambdaAbs("z", redex1), rs)
+    #     >>> result1 = normalOrderBetaEval(expr1)
+    #     >>> print(result1)
+    #     [((λz.((λx.(xy))(zt)))(rs)), ((λx.(xy))((rs)t)), (((rs)t)y), (((rs)t)y)]
+    #     >>> # Second test
+    #     ... abs2 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+    #     >>> abs3 = LambdaAbs("z", LambdaApp(LambdaVar("z"), LambdaVar("z")))
+    #     >>> redex2 = LambdaApp(abs3, LambdaVar("t"))
+    #     >>> expr2 = LambdaApp(abs2, redex2)
+    #     >>> result2 = normalOrderBetaEval(expr2)
+    #     >>> print(result2)
+    #     [((λx.(xy))((λz.(zz))t)), (((λz.(zz))t)y), ((tt)y)]
+    #     >>> # Third test
+    #     ... double = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("x")))
+    #     >>> applyTo_t = LambdaAbs("z", LambdaApp(LambdaVar("t"), LambdaVar("z")))
+    #     >>> future_tr = LambdaApp(applyTo_t, LambdaVar("r"))
+    #     >>> expr3 = LambdaApp(double, future_tr)
+    #     >>> result3 = normalOrderBetaEval(expr3)
+    #     >>> print(result3)
+    #     [((λx.(xx))((λz.(tz))r)), (((λz.(tz))r)((λz.(tz))r)), ((tr)((λz.(tz))r)), ((tr)(tr))]
+    #     """
+    #     # TODO
+    #     pass
 
 
     
-    def applicativeOrderBetaEval(self):
-        """
-        Operate a beta evaluation according to the applicative order.
+    # def applicativeOrderBetaEval(self):
+    #     """
+    #     Operate a beta evaluation according to the applicative order.
 
-        .. note::
+    #     .. note::
            
-           According to the applicative order, the evaluation begins with the
-           innermost expression.
+    #        According to the applicative order, the evaluation begins with the
+    #        innermost expression.
 
-        :return: the beta reduct of the expression
-        :rtype: LambdaVar, LambdaAbs or LambdaApp
-        :Examples:
+    #     :return: the beta reduct of the expression
+    #     :rtype: LambdaVar, LambdaAbs or LambdaApp
+    #     :Examples:
 
-        """
-        # TODO
-        pass
+    #     """
+    #     # TODO
+    #     pass
 
 
 
