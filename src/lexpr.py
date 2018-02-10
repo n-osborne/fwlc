@@ -162,11 +162,9 @@ class LambdaExp():
 
 
 
-
-
     def applyTo(self, other):
         """
-        Build a Lambda application from two Lambda expression.
+        Build a Lambda application from two Lambda expressions.
 
         :param other: the Lambda expression to which we apply the actual one
         :type other: LambdaExp
