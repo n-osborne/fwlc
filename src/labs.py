@@ -307,7 +307,7 @@ class LambdaAbs():
             assert not self.isBetaNormal()
             return LambdaAbs(self.binder, self.body.oneStepNOBetaEval())
         except AssertionError:
-            raise LambdaAppError(\
+            raise LambdaAbsError(\
                 "Can not carry on beta evaluation on a beta normal form")
 
 
@@ -328,9 +328,12 @@ class LambdaAbs():
         (λz.((st)y))
         :UC: self must not be in its normal beta form
         """
-        # TODO exception handling
-        return LambdaAbs(self.binder, self.body.oneStepAOBetaEval())
-
+        try:
+            assert not self.isBetaNormal()
+            return LambdaAbs(self.binder, self.body.oneStepAOBetaEval())
+        except AssertionError:
+            raise LambdaAbsError(\
+                "Can not carry on beta evaluation on a beta normal form")
     
 
     def normalOrderBetaEval(self):
