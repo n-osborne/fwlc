@@ -204,6 +204,17 @@ class LambdaVar():
 
 
 
+    def isRedex(self):
+        """
+        Fill the contract for Beta evaluation.
+            
+        :return: false
+        :rtype: boolean
+        """
+        return false
+
+
+
     def isBetaNormal(self):
         """
         Test whether a Lambda expression is in its beta normal form.
