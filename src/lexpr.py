@@ -184,37 +184,47 @@ class LambdaExp():
         
         
 
-    def betaEvalWithTraces(self, evalMode):
+    def betaEvalWithTraces(self, evalMode="normal"):
         """
         Perform a complete beta evaluation.
         
-        :param evalMode: a one step beta evaluation method
-        :type evalMode: method
+        :param evalMode: order of evaluation, either normal (default) or applicative
+        :type evalMode: str
         :return: the list of all the steps
         :rtype: list
-        :UC: all the possible type of LambdaExpr.expression should implement
-        evalMode
         :Examples:
         
         >>> # First test - normal order
         ... double = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("x")))
         >>> applyTo_t = LambdaAbs("z", LambdaApp(LambdaVar("t"), LambdaVar("z")))
         >>> future_tr = LambdaApp(applyTo_t, LambdaVar("r"))
-        >>> expr = LambdaApp(double, future_tr)
+        >>> expr = LambdaExp(LambdaApp(double, future_tr))
         >>> print(expr)
         ((λx.(xx))((λz.(tz))r))
-        >>> result_1 = expr.betaEvalWithTraces(oneStepNOBetaEval)
+        >>> result_1 = expr.betaEvalWithTraces()
         >>> print(result_1)
         [((λx.(xx))((λz.(tz))r)), (((λz.(tz))r)((λz.(tz))r)), ((tr)((λz.(tz))r)), ((tr)(tr))]
-        >>> result_2 = expr.betaEvalWithTraces(oneStepAOBetaEval)
+        >>> result_2 = expr.betaEvalWithTraces("applicative")
         >>> print(result_2)
         [((λx.(xx))((λz.(tz))r)), ((λx.(xx))(tr)), ((tr)(tr))]
         """
         # DONE: docstring
         # DONE: doctests
-        # TODO: function that enforce Barendregt's convention
-        # TODO: implementation
-        pass
+        # DONE: function avoiding name clash in betaReduction - TODO: to test
+        # DONE: implementation
+        trace = [self]
+        expr = self.expression
+        if evalMode == "normal":
+            while not expr.isBetaNormal():
+                expr = expr.oneStepNOBetaEval()
+                trace.append(LambdaExp(expr))
+            return trace
+        elif evalMode == "applicative":
+            while not expr.isBetaNormal():
+                expr = expr.oneStepAOBetaEval()
+                trace.append(LambdaExp(expr))
+            return trace
+
 
 
 
