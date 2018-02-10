@@ -234,59 +234,6 @@ class LambdaVar():
 
 
 
-    ### not needed !
-    # def oneStepNOBetaEval(self):
-    #     """
-    #     Preform one step of a normal order Beta-evaluation.
-
-    #     .. note::
-    #        this is only here to fill the contract of normal order beta
-    #        evaluation.
-
-    #     :return: self
-    #     :rtype: LambdaVar
-    #     """
-    #     return self
-
-
-
-    def normalOrderBetaEval(self):
-        """
-        Operate a beta evaluation according to the normal order.
-
-        .. note::
-
-           According to the normal order, the evaluation begins with the
-           leftmost, or the outermost, expression.
-
-        :return: the beta reduct of the expression
-        :rtype: LambdaVar, LambdaAbs or LambdaApp
-        :Examples:
-
-        """
-        # TODO
-        pass
-
-
-
-    def applicativeOrderBetaEval(self):
-        """
-        Operate a beta evaluation according to the applicative order.
-
-        .. note::
-           
-           According to the applicative order, the evaluation begins with the
-           innermost expression.
-
-        :return: the beta reduct of the expression
-        :rtype: LambdaVar, LambdaAbs or LambdaApp
-        :Examples:
-
-        """
-        # TODO
-        pass
-
-
 
 
 if __name__ == '__main__':
