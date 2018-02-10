@@ -355,15 +355,19 @@ class LambdaApp():
         >>> print(result3_3)
         ((tr)(tr))
         """
-        # TODO exception handling
-        if self.isRedex():
-            return self.betaReduction()
-        elif not self.function.isBetaNormal():
-            return LambdaApp(self.function.oneStepNOBetaEval(),\
-                             self.argument)
-        else:
-            return LambdaApp(self.function,\
-                             self.argument.oneStepNOBetaEval())
+        try:
+            assert not self.isBetaNormal()
+            if self.isRedex():
+                return self.betaReduction()
+            elif not self.function.isBetaNormal():
+                return LambdaApp(self.function.oneStepNOBetaEval(),\
+                                 self.argument)
+            else:
+                return LambdaApp(self.function,\
+                                 self.argument.oneStepNOBetaEval())
+        except AssertionError:
+            raise LambdaAppError(\
+                "Can not carry on beta evaluation on a beta normal form.")
 
 
 
@@ -424,15 +428,19 @@ class LambdaApp():
         >>> print(result3_2)
         ((tr)(tr))
         """    
-        # TODO exception handling
-        if not self.argument.isBetaNormal():
-            return LambdaApp(self.function,\
-                             self.argument.oneStepAOBetaEval())
-        elif not self.function.isBetaNormal():
-            return LambdaApp(self.function.oneStepAOBetaEval(),\
-                             self.argument)
-        else:
-            return self.betaReduction()
+        try:
+            assert not self.isBetaNormal()
+            if not self.argument.isBetaNormal():
+                return LambdaApp(self.function,\
+                                 self.argument.oneStepAOBetaEval())
+            elif not self.function.isBetaNormal():
+                return LambdaApp(self.function.oneStepAOBetaEval(),\
+                                 self.argument)
+            else:
+                return self.betaReduction()
+        except AssertionError:
+            raise LambdaAppError(\
+                "Can not carry on beta evaluation on a beta normal form.")
 
         
 
