@@ -303,9 +303,31 @@ class LambdaAbs():
         >>> print(expr1.oneStepNOBetaEval())
         (λz.((st)y))
         """
+        # TODO exception handling
         return LambdaAbs(self.binder, self.body.oneStepNOBetaEval())
 
-       
+
+    
+    def oneStepAOBetaEval(self):
+        """
+        Perform one step of a Beta-Evaluation in Applicative Order.
+
+        :return: the one step Beta-evaluation of the expression
+        :rtype: LambdaAbs
+        :Examples:
+
+        >>> from lapp import *
+        >>> abs1 = LambdaAbs("x", LambdaApp(LambdaVar("x"), LambdaVar("y")))
+        >>> redex = LambdaApp(abs1, LambdaApp(LambdaVar("s"), LambdaVar("t")))
+        >>> expr1 = LambdaAbs("z", redex)
+        >>> print(expr1.oneStepNOBetaEval())
+        (λz.((st)y))
+        :UC: self must not be in its normal beta form
+        """
+        # TODO exception handling
+        return LambdaAbs(self.binder, self.body.oneStepAOBetaEval())
+
+    
 
     def normalOrderBetaEval(self):
         """
