@@ -230,7 +230,8 @@ class LambdaExp():
         >>> result_1 = expr.betaEvalWithTraces()
         >>> print(result_1)
         [((λx.(xx))((λz.(tz))r)), (((λz.(tz))r)((λz.(tz))r)), ((tr)((λz.(tz))r)), ((tr)(tr))]
-        >>> result_2 = expr.betaEvalWithTraces("applicative")
+        >>> # Second test - applicative order
+        ... result_2 = expr.betaEvalWithTraces("applicative")
         >>> print(result_2)
         [((λx.(xx))((λz.(tz))r)), ((λx.(xx))(tr)), ((tr)(tr))]
         """
