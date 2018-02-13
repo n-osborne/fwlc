@@ -4,7 +4,7 @@
 """
 :module name: lexpr
 :module author: Nicolas Osborne <nicolas.osborne@etudiant.univ-lille1.fr>
-:date: 2018, January
+:date: 2018, February
 
 :synopsis: Provide a general modelisation for lambda expressions.
 """
@@ -183,6 +183,32 @@ class LambdaExp():
         return LambdaExp(LambdaApp(fun, arg))
         
         
+
+    def abstractVar(self, var):
+        """
+        Build a lambda abstraction from the expression with the given variable.
+
+        :param var: the binder of the returned abstraction
+        :type var: str
+        :return: the lambda abstraction composed of var as binder and the
+        expression as body
+        :rtype: LambdaExp
+        :Examples:
+
+        >>> arg = LambdaExp(LambdaVar("y"))
+        >>> fun = LambdaExp(LambdaVar("x"))
+        >>> expr = LambdaExp(LambdaApp(arg, fun))
+        >>> abs = expr.abstractVar("x")
+        >>> type(abs.expression) == LambdaAbs
+        True
+        >>> abs.expression.binder == "x"
+        True
+        >>> abs.expression.body == expr.expression
+        True
+        """
+        return LambdaExp(LambdaAbs(var, self.expression))
+
+
 
     def betaEvalWithTraces(self, evalMode="normal"):
         """
