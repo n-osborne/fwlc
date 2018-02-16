@@ -8,7 +8,6 @@
 
 :synopsis: Parser for lambda expressions.
 
-
 :Tests:
 
 >>> test1 = readExp("(xy)")
@@ -44,12 +43,22 @@ True
 True
 >>> test3["left"]["right"] == "y"
 True
+>>> test4 = buildExp(test1)
+>>> type(test4) == lepxr.LambdaExp
+True
+>>> print(test4)
+(xy)
+>>> test5 = buildExp(test2)
+>>> print(test5)
+(λx.(xy))
+>>> test6 = buildExp(test3)
+>>> print(test6)
+((xy)z)
 """
+
 
 import alphabet_def
 import lexpr
-
-
 
 def readExp(string):
     """
