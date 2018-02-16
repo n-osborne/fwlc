@@ -15,7 +15,7 @@ import lexpr
 
 
 
-def buildTree(string, indiex):
+def buildTree(string, index):
     """
     Transform a string representing a lambda expression into a binary tree
     modeling this same lambda expression.
