@@ -14,16 +14,26 @@ import lexpr
 
 
 
+def readExp(string):
+    """
+    Call buildTree on the tranformation of a string into an iterator
+    
+    :param string: the representation of a lambda expression
+    :type string: str
+    :return: the tree modeling the lambda expression
+    :rtype: dict
+    """
+    return buildTree(iter(string))
+ 
 
-def buildTree(string, index):
+
+def buildTree(iterator):
     """
     Transform a string representing a lambda expression into a binary tree
     modeling this same lambda expression.
 
-    :param string: the representation of the lambda expression
-    :type string: str
-    :param index: an index to keep track of the parsing
-    :type index: int
+    :param iterator: the representation of the lambda expression in an iterator
+    :type string: str_iterator
     :return: the tree modeling the lambda expression
     :rtype: dict
     :Examples:
