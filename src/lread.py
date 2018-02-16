@@ -7,6 +7,43 @@
 :date: 2018, february
 
 :synopsis: Parser for lambda expressions.
+
+
+:Tests:
+
+>>> test1 = readExp("(xy)")
+>>> type(test1) == dict
+True
+>>> test1["root"] == None
+True
+>>> test1["left"] == "x"
+True
+>>> test1["right"] == "y"
+True
+>>> test2 = readExp("(/x.(xy))")
+>>> type(test2) == dict
+True
+>>> test2["root"] == None
+True
+>>> test2["left"] == "/x"
+True
+>>> type(test2["right") == dict
+True
+>>> test3 = readExp("((xy)z)")
+>>> type(test3) == dict
+True
+>>> test3["root"] == None
+True
+>>> type(test3["left"]) == dict
+True
+>>> test3["right"] == "z"
+True
+>>> test3["left"]["root"] == None
+True
+>>> test3["left"]["left"] == "x"
+True
+>>> test3["left"]["right"] == "y"
+True
 """
 
 import alphabet_def
