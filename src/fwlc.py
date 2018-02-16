@@ -9,6 +9,8 @@
 :synopsis: REPL for Fun With Lambda Calculus
 """
 
+import lexpr
+import lread
 
 
 PROMPT = "<°λ°> " 
@@ -37,8 +39,8 @@ while True:
     elif command[0][0] != ":" and len(command) == 3 and command[1] == "=":
         try:
             DIC[command[0]] = read(command[2]) # TODO function read
-        except: # TODO capture different exceptions (the two sides of the binary
-            # operator =
+        except:
+            # TODO capture different exceptions (the two sides of the binary operator =
             print("That does not seem to be a correct lambda expression.")
 
 
