@@ -94,6 +94,7 @@ def anythingButOp(candidate, cpt):
             return anythingButClosing(candidate, cpt+1)
         elif char in var:
             return varOrOpening(candidate, cpt)
+        
     except StopIteration:
         return cpt == 0
         
@@ -106,7 +107,7 @@ def anythingButClosing(candidate, cpt):
     Read first letter of candidate and search for anything but op.
     
     :param candidate: the string to parse
-    :type candidate: str
+    :type candidate: iterator
     :param cpt: take count of the opening bracket that are not yet closed
     :type cpt: int
     :return: true if candidate is well formed, false otherwise
@@ -114,6 +115,19 @@ def anythingButClosing(candidate, cpt):
     """
     try:
         char = next(candidate)
+        if char == ')':
+            return False
+        elif char == '(':
+            return anythingButClosing(candidate, cpt+1)
+        elif char in var:
+            return varOrOpening(candidate, cpt)
+        elif char == op:
+            binder = next(candidate)
+            point = next(candidate)
+            if binder == op and point == dot:
+                return varOrOpening(candidate, cpt)
+            else:
+                return False
 
     except StopIteration:
         return cpt == 0
@@ -128,7 +142,7 @@ def anythingButClosing(candidate, cpt):
     Read first letter of candidate and search for anything but op.
     
     :param candidate: the string to parse
-    :type candidate: str
+    :type candidate: iterator
     :param cpt: take count of the opening bracket that are not yet closed
     :type cpt: int
     :return: true if candidate is well formed, false otherwise
@@ -150,7 +164,7 @@ def anythingButClosing(candidate, cpt):
     Read first letter of candidate and search for anything but op.
     
     :param candidate: the string to parse
-    :type candidate: str
+    :type candidate: iterator
     :param cpt: take count of the opening bracket that are not yet closed
     :type cpt: int
     :return: true if candidate is well formed, false otherwise
