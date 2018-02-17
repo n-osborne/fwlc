@@ -60,12 +60,6 @@ def initParsing(candidate):
     if type(candidate) == str and candidate in var:
         return True
 
-    elif type(candidate) != str\
-         or candidate[0] != opening\
-         or len(candidate) < 4:
-         # or not set(candidate).issubset(alphabet_def.TOTAL_ALPHABET):
-        return False
-
     else:
         return anythingButOp(iter(candidate), 0)
 
@@ -87,15 +81,14 @@ def anythingButOp(candidate, cpt):
         
     try:
         char = next(candidate)
-        # print(char)
-        if char == op or char == dot:
-            return False
-        elif char == closing:
+        if char == closing:
             return anythingButOp(candidate, cpt-1)
         elif char == opening:
             return anythingButClosing(candidate, cpt+1)
-        else:
+        elif char in var:
             return varOrClosing(candidate, cpt)
+        else: # char is dot, in op or not in alphabet
+            return False
         
     except StopIteration:
         return cpt == 0
@@ -117,20 +110,19 @@ def anythingButClosing(candidate, cpt):
     """
     try:
         char = next(candidate)
-        # print(char)
-        if char == closing or char == dot:
-            return False
-        elif char == '(':
+        if char == opening:
             return anythingButClosing(candidate, cpt+1)
         elif char in var:
             return varOrOpening(candidate, cpt)
-        else:
+        elif char in op:
             binder = next(candidate)
             point = next(candidate)
             if binder in var and point == dot:
                 return varOrOpening(candidate, cpt)
             else:
                 return False
+        else: # char is closing, dot or not in the alphabet
+            return False
 
     except StopIteration:
         return cpt == 0
@@ -153,13 +145,12 @@ def varOrOpening(candidate, cpt):
     """
     try:
         char = next(candidate)
-        # print(char)
-        if char == op or char == closing or char == dot:
-            return False
-        elif char in var:
+        if char in var:
             return onlyClosing(candidate, cpt)
-        else:
+        elif char == opening:
             return anythingButClosing(candidate, cpt+1)
+        else: # char is op or closing or dot or not in the alphabet
+            return False
 
     except StopIteration:
         return cpt == 0
@@ -184,7 +175,7 @@ def varOrClosing(candidate, cpt):
             return anythingButOp(candidate, cpt-1)
         elif char in var:
             return onlyClosing(candidate, cpt)
-        else:
+        else: # char is op, dot, opening or not in the alphabet
             return False
 
     except StopIteration:
@@ -208,7 +199,7 @@ def onlyClosing(candidate, cpt):
         # print(char)
         if char == closing:
             return anythingButOp(candidate, cpt-1)
-        else:
+        else: # char is opening, in var, op or not in the alphabet
             return False
 
     except StopIteration:
