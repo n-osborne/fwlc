@@ -109,7 +109,12 @@ def buildExpr(tree):
     :rtype: dict
     :Examples:
 
-
+    >>> ex1 = buildExpr({'root': None, 'left': 'x', 'right': 'y'})
+    >>> print(ex1)
+    (xy)
+    >>> ex2 = buildEpxr({'root': None, 'left': '/x', 'right': 'x'})
+    >>> print(ex2)
+    (λx.x)
     """
     pass
 
