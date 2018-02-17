@@ -47,7 +47,6 @@ closing = ')'
 
 
 
-
 def initParsing(candidate):
     """
     Initialize the test.
@@ -65,40 +64,42 @@ def initParsing(candidate):
 
 
 
-    
-def anythingButOp(candidate, cpt):
+
+
+
+def varOrOpening(candidate, cpt):
     """
-    Read first letter of candidate and search for anything but op.
+    Take one step in the iterator and search for var or opening.
     
-    :param candidate: the string to parse in an iterator
+    :param candidate: the string to parse
     :type candidate: iterator
     :param cpt: take count of the opening bracket that are not yet closed
     :type cpt: int
     :return: true if candidate is well formed, false otherwise
     :rtype: bool
     """
-        
     try:
         char = next(candidate)
-        if char == closing:
-            return anythingButOp(candidate, cpt-1)
+        if char in var:
+            return onlyClosing(candidate, cpt)
         elif char == opening:
             return anythingButClosing(candidate, cpt+1)
-        elif char in var:
-            return varOrClosing(candidate, cpt)
-        else: # char is dot, in op or not in alphabet
+        else: # char is op or closing or dot or not in the alphabet
             return False
-        
+
     except StopIteration:
         return cpt == 0
-        
+
+
+
+
 
 
 
         
 def anythingButClosing(candidate, cpt):
     """
-    Read first letter of candidate and search for anything but op.
+    Take one step in the iterator and search for anything but closing.
     
     :param candidate: the string to parse
     :type candidate: iterator
@@ -130,36 +131,40 @@ def anythingButClosing(candidate, cpt):
 
 
 
-
-def varOrOpening(candidate, cpt):
-    """
-    Read first letter of candidate and search for anything but op.
     
-    :param candidate: the string to parse
+def anythingButOp(candidate, cpt):
+    """
+    Take one step in the iterator and search for anything but op.
+    
+    :param candidate: the string to parse in an iterator
     :type candidate: iterator
     :param cpt: take count of the opening bracket that are not yet closed
     :type cpt: int
     :return: true if candidate is well formed, false otherwise
     :rtype: bool
     """
+        
     try:
         char = next(candidate)
-        if char in var:
-            return onlyClosing(candidate, cpt)
+        if char == closing:
+            return anythingButOp(candidate, cpt-1)
         elif char == opening:
             return anythingButClosing(candidate, cpt+1)
-        else: # char is op or closing or dot or not in the alphabet
+        elif char in var:
+            return varOrClosing(candidate, cpt)
+        else: # char is dot, in op or not in alphabet
             return False
-
+        
     except StopIteration:
         return cpt == 0
+        
 
 
 
 
 def varOrClosing(candidate, cpt):
     """
-    Read first letter of candidate and search for anything but op.
+    Take one step in the iterator and search for var or closing.
     
     :param candidate: the string to parse
     :type candidate: iterator
@@ -182,9 +187,14 @@ def varOrClosing(candidate, cpt):
 
 
 
+
+
+
+
+
 def onlyClosing(candidate, cpt):
     """
-    Read first letter of candidate and search for anything but op.
+    Take one step in the iterator and search only for closing.
     
     :param candidate: the string to parse
     :type candidate: iterator
