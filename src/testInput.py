@@ -57,12 +57,11 @@ def initParsing(candidate):
     :return: true if candidate is well formed, false otherwise
     :rtype: bool
     """
-    if type(candidate) == str and candidate in var:
-        return True
 
+    if type(candidate) != str:
+        return False
     else:
-        return anythingButOp(iter(candidate), 0)
-
+        return varOrOpening(iter(candidate), 0)
 
 
 
