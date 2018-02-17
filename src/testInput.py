@@ -92,7 +92,7 @@ def anythingButOp(candidate, cpt):
             return anythingButOp(candidate, cpt-1)
         elif char == '(':
             return anythingButClosing(candidate, cpt+1)
-        elif char in var:
+        else:
             return varOrOpening(candidate, cpt)
         
     except StopIteration:
@@ -121,7 +121,7 @@ def anythingButClosing(candidate, cpt):
             return anythingButClosing(candidate, cpt+1)
         elif char in var:
             return varOrOpening(candidate, cpt)
-        elif char == op:
+        else:
             binder = next(candidate)
             point = next(candidate)
             if binder == op and point == dot:
@@ -150,6 +150,12 @@ def anythingButClosing(candidate, cpt):
     """
     try:
         char = next(candidate)
+        if char == op or char == ')':
+            return False
+        elif char in var:
+            return onlyClosing(candidate, cpt)
+        else:
+            return anythingButClosing(candidate, cpt+1)
 
     except StopIteration:
         return cpt == 0
