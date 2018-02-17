@@ -11,6 +11,8 @@ Finite State Machine with four states.
 
 :Tests:
 
+>>> initParsing("x")
+True
 >>> initParsing("(xy)")
 True
 >>> initParsing("(/x.(xy)(x(ud)))")
@@ -23,13 +25,13 @@ True
 False
 >>> initParsing("(Xy)")
 False
->>> intiParsing("((xy)z")
+>>> initParsing("((xy)z")
 False
 >>> initParsing("(xy)z)")
 False
 >>> initParsing("(xyz)")
 False
->>> intiParsing("(/x(xy))")
+>>> initParsing("(/x(xy))")
 False
 """
 
@@ -39,8 +41,6 @@ import alphabet_def
 var = alphabet_def.VAR_SET
 op = alphabet_def.POSSIBLE_OP
 dot = alphabet_def.LAMBDA_DOT
-
-
 
 
 
@@ -60,9 +60,9 @@ def initParsing(candidate):
         return True
 
     elif type(candidate) != str\
-       or len(candidate) < 4\
-       or candidate[0] != '('\
-       or not set(candidate).issubset(alphabet_def.TOTAL_ALPHABET):
+         or candidate[0] != '('\
+         or len(candidate) < 4:
+         # or not set(candidate).issubset(alphabet_def.TOTAL_ALPHABET):
         return False
 
     else:
@@ -86,7 +86,8 @@ def anythingButOp(candidate, cpt):
         
     try:
         char = next(candidate)
-        if char == op:
+        # print(char)
+        if char == op or char == dot:
             return False
         elif char == ')':
             return anythingButOp(candidate, cpt-1)
@@ -115,7 +116,8 @@ def anythingButClosing(candidate, cpt):
     """
     try:
         char = next(candidate)
-        if char == ')':
+        # print(char)
+        if char == ')' or char == dot:
             return False
         elif char == '(':
             return anythingButClosing(candidate, cpt+1)
@@ -124,7 +126,7 @@ def anythingButClosing(candidate, cpt):
         else:
             binder = next(candidate)
             point = next(candidate)
-            if binder == op and point == dot:
+            if binder in var and point == dot:
                 return varOrOpening(candidate, cpt)
             else:
                 return False
@@ -137,7 +139,7 @@ def anythingButClosing(candidate, cpt):
 
 
 
- def varOrOpening(candidate, cpt):
+def varOrOpening(candidate, cpt):
     """
     Read first letter of candidate and search for anything but op.
     
@@ -150,7 +152,8 @@ def anythingButClosing(candidate, cpt):
     """
     try:
         char = next(candidate)
-        if char == op or char == ')':
+        # print(char)
+        if char == op or char == ')' or char == dot:
             return False
         elif char in var:
             return onlyClosing(candidate, cpt)
@@ -165,7 +168,7 @@ def anythingButClosing(candidate, cpt):
 
 
 
- def onlyClosing(candidate, cpt):
+def onlyClosing(candidate, cpt):
     """
     Read first letter of candidate and search for anything but op.
     
@@ -176,10 +179,11 @@ def anythingButClosing(candidate, cpt):
     :return: true if candidate is well formed, false otherwise
     :rtype: bool
     """
-     try:
+    try:
         char = next(candidate)
+        # print(char)
         if char == ')':
-            return anyhingButOp(candidate, cpt-1)
+            return anythingButOp(candidate, cpt-1)
         else:
             return False
 
@@ -207,4 +211,4 @@ def anythingButClosing(candidate, cpt):
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(verbose = True)
+    doctest.testmod()
