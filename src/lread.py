@@ -58,7 +58,10 @@ True
 
 
 import alphabet_def
-import lexpr
+from lexpr import *
+from lapp import *
+from labs import *
+from lvar import *
 
 def readExp(string):
     """
@@ -82,6 +85,7 @@ def buildTree(iterator):
     :type string: str_iterator
     :return: the tree modeling the lambda expression
     :rtype: dict
+    :UC: iterator must represent a well formed lambda expression
     :Examples:
 
     >>> ex1 = buildTree(iter("(bc)")
@@ -107,6 +111,16 @@ def buildExpr(tree):
     :type tree: dict
     :return: the lambda expression modeled by the tree
     :rtype: dict
+    :UC:
+
+       - tree has exactly these three fields: 'root', 'left', 'right'
+       - either 'root' is None and the two others are not and contain either a
+         tree or a variable or the concatenation of the lambda operator and a
+         variable
+       - or 'root' is not None but the two other are and the 'root' contains
+         either a variable or the concatenation of the lambda operator and a
+         variable
+
     :Examples:
 
     >>> ex1 = buildExpr({'root': None, 'left': 'x', 'right': 'y'})
