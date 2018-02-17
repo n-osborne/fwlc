@@ -41,7 +41,8 @@ import alphabet_def
 var = alphabet_def.VAR_SET
 op = alphabet_def.POSSIBLE_OP
 dot = alphabet_def.LAMBDA_DOT
-
+opening = '('
+closing = ')'
 
 
 
@@ -60,7 +61,7 @@ def initParsing(candidate):
         return True
 
     elif type(candidate) != str\
-         or candidate[0] != '('\
+         or candidate[0] != opening\
          or len(candidate) < 4:
          # or not set(candidate).issubset(alphabet_def.TOTAL_ALPHABET):
         return False
@@ -89,9 +90,9 @@ def anythingButOp(candidate, cpt):
         # print(char)
         if char == op or char == dot:
             return False
-        elif char == ')':
+        elif char == closing:
             return anythingButOp(candidate, cpt-1)
-        elif char == '(':
+        elif char == opening:
             return anythingButClosing(candidate, cpt+1)
         else:
             return varOrClosing(candidate, cpt)
@@ -117,7 +118,7 @@ def anythingButClosing(candidate, cpt):
     try:
         char = next(candidate)
         # print(char)
-        if char == ')' or char == dot:
+        if char == closing or char == dot:
             return False
         elif char == '(':
             return anythingButClosing(candidate, cpt+1)
@@ -153,7 +154,7 @@ def varOrOpening(candidate, cpt):
     try:
         char = next(candidate)
         # print(char)
-        if char == op or char == ')' or char == dot:
+        if char == op or char == closing or char == dot:
             return False
         elif char in var:
             return onlyClosing(candidate, cpt)
@@ -179,7 +180,7 @@ def varOrClosing(candidate, cpt):
     """
     try:
         char = next(candidate)
-        if char == ')':
+        if char == closing:
             return anythingButOp(candidate, cpt-1)
         elif char in var:
             return onlyClosing(candidate, cpt)
@@ -205,7 +206,7 @@ def onlyClosing(candidate, cpt):
     try:
         char = next(candidate)
         # print(char)
-        if char == ')':
+        if char == closing:
             return anythingButOp(candidate, cpt-1)
         else:
             return False
