@@ -63,17 +63,30 @@ from lapp import *
 from labs import *
 from lvar import *
 
+import testInput
+import testTree
+
+
+
 def readExp(string):
     """
-    Call buildTree on the tranformation of a string into an iterator.
+    Check wether the arg is well formed and initialize buildTree.
     
     :param string: the representation of a lambda expression
     :type string: str
     :return: the tree modeling the lambda expression
     :rtype: dict
     """
-    return buildTree(iter(string))
+    try:
+        assert testInput.initParsing(string)
+        return buildTree(iter(string))
+    except AssertionError:
+        # TODO define a pretty exception
+        pass
+        
+
  
+
 
 
 def buildTree(iterator):
@@ -98,6 +111,23 @@ def buildTree(iterator):
     pass
 
 
+
+def readTree(tree):
+    """
+    Check wether tree is well formed and initialize buildExpr.
+
+    :param tree: a possible modelisation of a lambda expression
+    :type tree: dict
+    :return: the corresponding lambda expression
+    :rtype: LambdaExp
+    """
+    try:
+        # TODO funciton to test input for buildExpr
+        assert testTree.testTree(tree)
+        return buildExpr(tree)
+    except AssertionError:
+        pass # TODO define a pretty exception
+ 
 
 
 
@@ -131,18 +161,6 @@ def buildExpr(tree):
     (λx.x)
     """
     pass
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
