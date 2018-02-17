@@ -100,6 +100,73 @@ def anythingButOp(candidate, cpt):
 
 
 
+        
+def anythingButClosing(candidate, cpt):
+    """
+    Read first letter of candidate and search for anything but op.
+    
+    :param candidate: the string to parse
+    :type candidate: str
+    :param cpt: take count of the opening bracket that are not yet closed
+    :type cpt: int
+    :return: true if candidate is well formed, false otherwise
+    :rtype: bool
+    """
+    try:
+        char = next(candidate)
+
+    except StopIteration:
+        return cpt == 0
+
+
+
+
+
+
+ def varOrOpening(candidate, cpt):
+    """
+    Read first letter of candidate and search for anything but op.
+    
+    :param candidate: the string to parse
+    :type candidate: str
+    :param cpt: take count of the opening bracket that are not yet closed
+    :type cpt: int
+    :return: true if candidate is well formed, false otherwise
+    :rtype: bool
+    """
+    try:
+        char = next(candidate)
+
+    except StopIteration:
+        return cpt == 0
+
+
+
+
+
+
+ def onlyClosing(candidate, cpt):
+    """
+    Read first letter of candidate and search for anything but op.
+    
+    :param candidate: the string to parse
+    :type candidate: str
+    :param cpt: take count of the opening bracket that are not yet closed
+    :type cpt: int
+    :return: true if candidate is well formed, false otherwise
+    :rtype: bool
+    """
+     try:
+        char = next(candidate)
+
+    except StopIteration:
+        return cpt == 0
+
+
+
+
+
+
 
 
 
