@@ -66,7 +66,39 @@ def initParsing(candidate):
         return False
 
     else:
-        return parse(candidate, 0)
+        return anythingButOp(iter(candidate), 0)
+
+
+
+
+    
+def anythingButOp(candidate, cpt):
+    """
+    Read first letter of candidate and search for anything but op.
+    
+    :param candidate: the string to parse in an iterator
+    :type candidate: iterator
+    :param cpt: take count of the opening bracket that are not yet closed
+    :type cpt: int
+    :return: true if candidate is well formed, false otherwise
+    :rtype: bool
+    """
+        
+    try:
+        char = next(candidate)
+        if char == op:
+            return False
+        elif char == ')':
+            return anythingButOp(candidate, cpt-1)
+        elif char == '(':
+            return anythingButClosing(candidate, cpt+1)
+        elif char in var:
+            return varOrOpening(candidate, cpt)
+    except StopIteration:
+        return cpt == 0
+        
+
+
 
 
 
