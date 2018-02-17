@@ -178,6 +178,10 @@ def anythingButClosing(candidate, cpt):
     """
      try:
         char = next(candidate)
+        if char == ')':
+            return anyhingButOp(candidate, cpt-1)
+        else:
+            return False
 
     except StopIteration:
         return cpt == 0
