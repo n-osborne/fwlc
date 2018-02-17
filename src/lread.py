@@ -62,7 +62,7 @@ import lexpr
 
 def readExp(string):
     """
-    Call buildTree on the tranformation of a string into an iterator
+    Call buildTree on the tranformation of a string into an iterator.
     
     :param string: the representation of a lambda expression
     :type string: str
@@ -84,7 +84,12 @@ def buildTree(iterator):
     :rtype: dict
     :Examples:
 
-
+    >>> ex1 = buildTree(iter("(bc)")
+    >>> print(ex1)
+    {'root': None, 'left': 'b', 'right': 'c'}
+    >>> ex2 = buildTree(iter("(f(oo))")
+    >>> print(ex2)
+    {'root': None, 'left': 'f', 'right': {'root': None, 'right': 'o', 'left': 'o'}}
     """
     pass
 
