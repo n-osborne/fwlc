@@ -7,7 +7,7 @@
 :date: 2018; febuary
 
 :synopsis: test weihter a string is a well formed candidate for lread.buildTree
-Finite State Machine with four states.
+Finite State Machine with five states.
 
 :Tests:
 
@@ -94,7 +94,7 @@ def anythingButOp(candidate, cpt):
         elif char == '(':
             return anythingButClosing(candidate, cpt+1)
         else:
-            return varOrOpening(candidate, cpt)
+            return varOrClosing(candidate, cpt)
         
     except StopIteration:
         return cpt == 0
@@ -165,6 +165,29 @@ def varOrOpening(candidate, cpt):
 
 
 
+
+def varOrClosing(candidate, cpt):
+    """
+    Read first letter of candidate and search for anything but op.
+    
+    :param candidate: the string to parse
+    :type candidate: iterator
+    :param cpt: take count of the opening bracket that are not yet closed
+    :type cpt: int
+    :return: true if candidate is well formed, false otherwise
+    :rtype: bool
+    """
+    try:
+        char = next(candidate)
+        if char == ')':
+            return anythingButOp(candidate, cpt-1)
+        elif char in var:
+            return onlyClosing(candidate, cpt)
+        else:
+            return False
+
+    except StopIteration:
+        return cpt == 0
 
 
 
