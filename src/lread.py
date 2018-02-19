@@ -139,6 +139,14 @@ def buildTree(iterator):
         pass
 
 
+class TreeError(Exception):
+    """
+    Exception class for parsing tree.
+    """
+    def __init__(self, msg):
+        self.message = msg
+
+
 
 def readTree(tree):
     """
@@ -150,11 +158,10 @@ def readTree(tree):
     :rtype: LambdaExp
     """
     try:
-        # TODO funciton to test input for buildExpr
         assert testTree.testTree(tree)
         return buildExpr(tree)
     except AssertionError:
-        pass # TODO define a pretty exception
+        raise TreeError("Tree badly formed.")
  
 
 
