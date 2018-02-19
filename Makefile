@@ -19,8 +19,6 @@ help:
 clean:
 	rm -f *~ */*~
 	rm -rf __pycache__ src/__pycache__
-	rm -rf $(DOC)
-	rm -f $(PROJECT).zip
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
