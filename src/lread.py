@@ -66,6 +66,12 @@ from lvar import *
 import testInput
 import testTree
 
+var = alphabet_def.VAR_SET
+op = alphabet_def.POSSIBLE_OP
+dot = set(alphabet_def.LAMBDA_DOT)
+closing = ')'
+opening = '('
+ignore = dot.union(set(closing))
 
 
 class InputError(Exception):
@@ -115,7 +121,22 @@ def buildTree(iterator):
     >>> print(ex2)
     {'root': None, 'left': 'f', 'right': {'root': None, 'right': 'o', 'left': 'o'}}
     """
-    pass
+    try:
+        while True:
+            char = next(iterator)
+            if char in var:
+                return {'root': char, 'left': None, 'right': None}
+            elif char in op:
+                return {'root': char + next(iterator),\
+                        'left': None ,'right': None}
+            elif char == opening:
+                left = buildTree(iterator)
+                right = buildTree(iterator)
+                return {'root': None, 'left': left, 'right': right}
+            else: # char is either dot or opening
+                next(iterator)
+    except StopIteration:
+        pass
 
 
 
