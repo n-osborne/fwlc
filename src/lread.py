@@ -68,6 +68,14 @@ import testTree
 
 
 
+class InputError(Exception):
+    """
+    Exception class for parsing expression.
+    """
+    def __init__(self, msg):
+        self.message = msg
+
+
 def readExp(string):
     """
     Check wether the arg is well formed and initialize buildTree.
@@ -81,8 +89,7 @@ def readExp(string):
         assert testInput.initParsing(string)
         return buildTree(iter(string))
     except AssertionError:
-        # TODO define a pretty exception
-        pass
+        raise InputError("Badly formed string.")
         
 
  
