@@ -13,47 +13,29 @@
 >>> test1 = readExp("(xy)")
 >>> type(test1) == dict
 True
->>> test1["root"] == None
+>>> test1["left"]["root"] == "x"
 True
->>> test1["left"] == "x"
+>>> test1["right"]["root"] == "y"
 True
->>> test1["right"] == "y"
+>>> exp1 = readTree(test1)
+>>> type(exp1) == LambdaExp
 True
->>> test2 = readExp("(/x.(xy))")
+>>> print(exp1)
+(xy)
+>>> test2 = readExp("((xy)z)")
 >>> type(test2) == dict
 True
->>> test2["root"] == None
+>>> test2["right"]["root"] == "z"
 True
->>> test2["left"] == "/x"
-True
->>> type(test2["right") == dict
-True
->>> test3 = readExp("((xy)z)")
+>>> exp2 = readTree(test2)
+>>> print(exp2)
+((xy)z)
+>>> test3 = readExp("((/x.(xy))z)")
 >>> type(test3) == dict
 True
->>> test3["root"] == None
-True
->>> type(test3["left"]) == dict
-True
->>> test3["right"] == "z"
-True
->>> test3["left"]["root"] == None
-True
->>> test3["left"]["left"] == "x"
-True
->>> test3["left"]["right"] == "y"
-True
->>> test4 = buildExp(test1)
->>> type(test4) == lepxr.LambdaExp
-True
->>> print(test4)
-(xy)
->>> test5 = buildExp(test2)
->>> print(test5)
-(λx.(xy))
->>> test6 = buildExp(test3)
->>> print(test6)
-((xy)z)
+>>> exp3 = readTree(test3)
+>>> print(exp3)
+((λx.(xy))z)
 """
 
 
@@ -91,10 +73,9 @@ def readExp(string):
     :return: the tree modeling the lambda expression
     :rtype: dict
     """
-    try:
-        assert testInput.initParsing(string)
+    if testInput.initParsing(string):
         return buildTree(iter(string))
-    except AssertionError:
+    else:
         raise InputError("Badly formed string.")
         
 
@@ -114,12 +95,14 @@ def buildTree(iterator):
     :UC: iterator must represent a well formed lambda expression
     :Examples:
 
-    >>> ex1 = buildTree(iter("(bc)")
-    >>> print(ex1)
-    {'root': None, 'left': 'b', 'right': 'c'}
-    >>> ex2 = buildTree(iter("(f(oo))")
-    >>> print(ex2)
-    {'root': None, 'left': 'f', 'right': {'root': None, 'right': 'o', 'left': 'o'}}
+    >>> ex1 = buildTree(iter("(bc)"))
+    >>> print(ex1["left"])
+    {'root': 'b', 'left': None, 'right': None}
+    >>> print(ex1["right"])
+    {'root': 'c', 'left': None, 'right': None}
+    >>> ex2 = buildTree(iter("(f(oo))"))
+    >>> print(ex2["left"])
+    {'root': 'f', 'left': None, 'right': None}
     """
     try:
         while True:
@@ -133,8 +116,8 @@ def buildTree(iterator):
                 left = buildTree(iterator)
                 right = buildTree(iterator)
                 return {'root': None, 'left': left, 'right': right}
-            else: # char is either dot or opening
-                next(iterator)
+            else: # char is either dot or closing: do nothing
+                pass
     except StopIteration:
         pass
 
@@ -157,10 +140,9 @@ def readTree(tree):
     :return: the corresponding lambda expression
     :rtype: LambdaExp
     """
-    try:
-        assert testTree.testTree(tree)
-        return buildExpr(tree)
-    except AssertionError:
+    if testTree.testTree(tree):
+        return LambdaExp(buildExpr(tree))
+    else:
         raise TreeError("Tree badly formed.")
  
 
@@ -188,14 +170,27 @@ def buildExpr(tree):
 
     :Examples:
 
-    >>> ex1 = buildExpr({'root': None, 'left': 'x', 'right': 'y'})
+    >>> left1 = {'root': 'x', 'left': None, 'right': None}
+    >>> right1 = {'root': 'y', 'left': None, 'right': None}
+    >>> ex1 = buildExpr({'root': None, 'left': left1, 'right': right1})
     >>> print(ex1)
     (xy)
-    >>> ex2 = buildEpxr({'root': None, 'left': '/x', 'right': 'x'})
+    >>> left2 = {'root': '/x', 'left': None, 'right': None}
+    >>> right2 = {'root': 'x', 'left': None, 'right': None}
+    >>> ex2 = buildExpr({'root': None, 'left': left2, 'right': right2})
     >>> print(ex2)
     (λx.x)
     """
-    pass
+    if tree['root'] in var:
+        return LambdaVar(tree['root'])
+    elif tree['left']['root'] != None and tree['left']['root'][0] in op:
+    # elif tree['root'] == None\
+    #      and (op[0] in tree['left']['root']
+    #           or op[1] in tree['left']['root']):
+        return LambdaAbs(tree['left']['root'][1], buildExpr(tree['right']))
+    else: # node is None, dict, dict neither contains op
+        return LambdaApp(buildExpr(tree['left']),\
+                         buildExpr(tree['right']))
 
 
 
@@ -206,4 +201,4 @@ def buildExpr(tree):
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(verbose = True)
+    doctest.testmod()
