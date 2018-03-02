@@ -56,6 +56,20 @@ opening = '('
 ignore = dot.union(set(closing))
 
 
+
+def read(string):
+    """
+    Build a LambdaExp according to the string given as argument.
+
+    :param string: the representation of a lambda expression
+    :type string: str
+    :return: the lambda expression
+    :rtype: LambdaExp
+    """
+    return readTree(readExp(string))
+
+
+
 class InputError(Exception):
     """
     Exception class for parsing expression.
@@ -184,9 +198,6 @@ def buildExpr(tree):
     if tree['root'] in var:
         return LambdaVar(tree['root'])
     elif tree['left']['root'] != None and tree['left']['root'][0] in op:
-    # elif tree['root'] == None\
-    #      and (op[0] in tree['left']['root']
-    #           or op[1] in tree['left']['root']):
         return LambdaAbs(tree['left']['root'][1], buildExpr(tree['right']))
     else: # node is None, dict, dict neither contains op
         return LambdaApp(buildExpr(tree['left']),\
