@@ -160,6 +160,18 @@ class LambdaExp():
         """
         return self.expression.freeVar()
 
+    def isBetaNormal(self):
+        """
+        Test whether a Lambda expression is in its beta normal form.
+
+        :return: 
+
+           - True if the expression is its beta normal form
+           - False otherwise
+
+        :rtype: bool
+        """
+        return self.expression.isBetaNormal()
 
 
     def applyTo(self, other):
