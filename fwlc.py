@@ -49,8 +49,11 @@ def repl_loop():
             except:
                 print("That does not seem to be a correct lambda expression.")
 
-        elif command[0] in DIC.keys():
-            print(DIC[command[0]])
+        elif set(command[0]).issubset(ascii_uppercase):
+            if command[0] in DIC.keys():
+                print(DIC[command[0]])
+            else:
+                print("This identificator is not in used at the time being.")
 
         elif command[0][0] != ":" and len(command) == 1:
             try:
