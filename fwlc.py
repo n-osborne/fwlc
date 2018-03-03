@@ -11,7 +11,7 @@
 
 import lib.lexpr
 import lib.lread
-
+from string import ascii_uppercase
 
 PROMPT = "<°λ°> " 
 DIC = dict()
@@ -25,6 +25,8 @@ def repl_loop():
         
         command = input(PROMPT).split()
 
+        # general commands
+        
         if command[0] == ":q" or command == ":quit":
             print("Goodbye!")
             break
@@ -32,9 +34,13 @@ def repl_loop():
         elif (command[0] in (":h", ":help")) and len(command) == 1:
             printHelp() # TODO complete function printHelp
 
+        elif command[0] == ':license':
+            with open("LICENSE", "r") as stream :
+                print(stream.read())
+                
         elif command[0][0] != ":" and len(command) == 3 and command[1] == "=":
             try:
-                assert command[0].isupper()
+                assert set(command[0]).issubset(ascii_uppercase)
                 DIC[command[0]] = lib.lread.read(command[2])
             except AssertionError:
                 print("This is not a valid identificator.")
