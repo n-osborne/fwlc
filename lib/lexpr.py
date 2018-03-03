@@ -9,10 +9,10 @@
 :synopsis: Provide a general modelisation for lambda expressions.
 """
 
-from alphabet_def import *
-from lvar import *
-from lapp import *
-from labs import *
+from lib.alphabet_def import *
+from lib.lvar import *
+from lib.lapp import *
+from lib.labs import *
 
 class LambdaExpError(Exception):
     """

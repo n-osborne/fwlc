@@ -9,9 +9,9 @@
 :synopsis: Provide modelisation for lambda expressions of the form application.
 """
 
-from alphabet_def import *
-from lvar import *
-from labs import *
+from lib.alphabet_def import *
+from lib.lvar import *
+from lib.labs import *
 
 
 

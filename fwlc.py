@@ -9,8 +9,8 @@
 :synopsis: REPL for Fun With Lambda Calculus
 """
 
-import lexpr
-import lread
+import lib.lexpr
+import lib.lread
 
 
 PROMPT = "<°λ°> " 
@@ -35,7 +35,7 @@ def repl_loop():
         elif command[0][0] != ":" and len(command) == 3 and command[1] == "=":
             try:
                 assert command[0].isupper()
-                DIC[command[0]] = lread.read(command[2])
+                DIC[command[0]] = lib.lread.read(command[2])
             except AssertionError:
                 print("This is not a valid identificator.")
             except:

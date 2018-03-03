@@ -38,11 +38,11 @@ False
 """
 
 
-import alphabet_def
+import lib.alphabet_def
 
-var = alphabet_def.VAR_SET
-op = alphabet_def.POSSIBLE_OP
-dot = alphabet_def.LAMBDA_DOT
+var = lib.alphabet_def.VAR_SET
+op = lib.alphabet_def.POSSIBLE_OP
+dot = lib.alphabet_def.LAMBDA_DOT
 opening = '('
 closing = ')'
 

@@ -9,9 +9,9 @@
 :synopsis: Provide a modelisation for lambda expressions of the form abstraction.
 """
 
-from alphabet_def import *
-from lvar import *
-from lapp import *
+from lib.alphabet_def import *
+from lib.lvar import *
+from lib.lapp import *
 
 class LambdaAbsError(Exception):
     """

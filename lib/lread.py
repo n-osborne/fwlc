@@ -39,18 +39,18 @@ True
 """
 
 
-import alphabet_def
-from lexpr import *
-from lapp import *
-from labs import *
-from lvar import *
+import lib.alphabet_def
+from lib.lexpr import *
+from lib.lapp import *
+from lib.labs import *
+from lib.lvar import *
 
-import testInput
-import testTree
+import lib.testInput
+import lib.testTree
 
-var = alphabet_def.VAR_SET
-op = alphabet_def.POSSIBLE_OP
-dot = set(alphabet_def.LAMBDA_DOT)
+var = lib.alphabet_def.VAR_SET
+op = lib.alphabet_def.POSSIBLE_OP
+dot = set(lib.alphabet_def.LAMBDA_DOT)
 closing = ')'
 opening = '('
 ignore = dot.union(set(closing))
@@ -87,7 +87,7 @@ def readExp(string):
     :return: the tree modeling the lambda expression
     :rtype: dict
     """
-    if testInput.initParsing(string):
+    if lib.testInput.initParsing(string):
         return buildTree(iter(string))
     else:
         raise InputError("Badly formed string.")
@@ -154,7 +154,7 @@ def readTree(tree):
     :return: the corresponding lambda expression
     :rtype: LambdaExp
     """
-    if testTree.testTree(tree):
+    if lib.testTree.testTree(tree):
         return LambdaExp(buildExpr(tree))
     else:
         raise TreeError("Tree badly formed.")

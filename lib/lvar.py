@@ -9,7 +9,7 @@
 :synopsis: Provide modelisation for lambda expressions of the form simple name.
 """
 
-from alphabet_def import *
+from lib.alphabet_def import *
 
 
 class LambdaVarError(Exception):
