@@ -1,5 +1,7 @@
 # Fun With Lambda Calculus
 
+Version 0.7
+
 Doc work in progress [here](https://n-osborne.github.io/fwlc/)
 
 To try out, you need ``python3``. Then clone or download the repository and
