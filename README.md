@@ -1,44 +1,10 @@
 # Fun With Lambda Calculus
 
-More complete doc [here](https://n-osborne.github.io/fwlc/)
+Doc work in progress [here](https://n-osborne.github.io/fwlc/)
 
-## TODOs
+To try out, you need ``python3``. Then you clone or download the repository and
+run the program:
 
-### LambdaVar
-
-- [X] rename
-- [X] __repr__
-- [X] __eq__
-- [X] substitute
-
-### LambdaAbs
-
-- [X] __eq__
-- [X] __repr__
-- [X] rename
-- [X] substitute
-- [ ] etaReduction
-
-### LambdaApp
-
-- [X] __eq__
-- [X] __repr__
-- [X] rename
-- [X] substitution
-- [X] betaReduction
-- [X] isRedex
-
-### LambdaExp
-
-- [X] __eq__
-- [X] __repr__
-- [X] applyTo
-- [ ] abstractVar
-- [X] rename
-- [ ] betaReduction (?)
-- [ ] betaEval
-- [ ] etaReduction
-- [ ] isBetaNormal
-- [ ] isAlphaEq
-- [ ] isBetaEq
-- [ ] isEtaEq
+    git clone https://github.com/n-osborne/fwlc
+	cd fwlc
+	python3 fwlc.py
