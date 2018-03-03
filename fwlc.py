@@ -49,7 +49,7 @@ def repl_loop():
             except:
                 print("That does not seem to be a correct lambda expression.")
 
-        elif set(command[0]).issubset(ascii_uppercase):
+        elif set(command[0]).issubset(ascii_uppercase) and len(command) == 1:
             if command[0] in DIC.keys():
                 print(DIC[command[0]])
             else:
@@ -97,6 +97,9 @@ def repl_loop():
 
             except AssertionError:
                 print("This is not a valid identificator.")
+
+        else:
+            print("I do not understand what you are saying.")    
 
 
 
