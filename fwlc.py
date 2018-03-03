@@ -38,6 +38,8 @@ def repl_loop():
             with open("LICENSE", "r") as stream :
                 print(stream.read())
                 
+        # expression manipulation
+                
         elif command[0][0] != ":" and len(command) == 3 and command[1] == "=":
             try:
                 assert set(command[0]).issubset(ascii_uppercase)
@@ -50,6 +52,12 @@ def repl_loop():
         elif command[0] in DIC.keys():
             print(DIC[command[0]])
 
+        elif command[0][0] != ":" and len(command) == 1:
+            try:
+                print(lib.lread.read(command[0]))
+            except:
+                print("That does not seem to be a correct lambda expression.")
+                    
         elif command[0] == ":NOBeval":
             try:
                 assert command[1] in DIC.keys()
