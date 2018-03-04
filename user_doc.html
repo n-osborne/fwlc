@@ -1,0 +1,211 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>User Documentation &#8212; Fun With Lambda Calculus 0.7 beta documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.7 beta',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Technical Documentation" href="tech_doc.html" />
+    <link rel="prev" title="Fun With λ-Calculus Documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tech_doc.html" title="Technical Documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Fun With λ-Calculus Documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="user-documentation">
+<h1>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this headline">¶</a></h1>
+<p>In order, for the user, to interact with fwlc, it offers a prompt.</p>
+<p>There are a certain number of command possible.</p>
+<div class="section" id="general-command">
+<h2>General command<a class="headerlink" href="#general-command" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">:h</span></code> or <code class="docutils literal"><span class="pre">:help</span></code>:</dt>
+<dd>print the help message.</dd>
+<dt><code class="docutils literal"><span class="pre">:q</span></code> or <code class="docutils literal"><span class="pre">:quit</span></code>:</dt>
+<dd>exit the program.</dd>
+<dt><code class="docutils literal"><span class="pre">:license</span></code>:</dt>
+<dd>print the License.</dd>
+</dl>
+</div>
+<div class="section" id="expression-manipulation">
+<h2>Expression manipulation<a class="headerlink" href="#expression-manipulation" title="Permalink to this headline">¶</a></h2>
+<p>In order to manipulate expressions, they can be attached to an identificator.</p>
+<p>In the following explanation, <code class="docutils literal"><span class="pre">&lt;Id&gt;</span></code> denotes a correct identificator, and
+<code class="docutils literal"><span class="pre">&lt;Exp&gt;</span></code> a string representing a lambda expression.</p>
+<p>The set of correct identificators is the infinite set of strings containing only
+uppercase ASCII caracters.</p>
+<p>On the other hand, lambda expressions are represented in a way that is readable
+for the user and the machine. The choice of the author are:</p>
+<ul class="simple">
+<li>none of the parentheses are omitted except around a simple variable.</li>
+<li>the lambda operator is represented by the greek letter ‘λ’ but the user can
+use the character ‘/’ to facilitate the input.</li>
+</ul>
+<p>Here are some examples:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="52%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Expression</th>
+<th class="head">Representation</th>
+<th class="head">Input</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Variable</td>
+<td><span class="math">\(x\)</span></td>
+<td>x</td>
+</tr>
+<tr class="row-odd"><td>Application</td>
+<td><span class="math">\((xy)\)</span></td>
+<td>(xy)</td>
+</tr>
+<tr class="row-even"><td>Application</td>
+<td><span class="math">\(((xy)z)\)</span></td>
+<td>((xy)z)</td>
+</tr>
+<tr class="row-odd"><td>Application</td>
+<td><span class="math">\((x(yz))\)</span></td>
+<td>(x(yz))</td>
+</tr>
+<tr class="row-even"><td>Abstraction</td>
+<td><span class="math">\((\lambda x.x)\)</span></td>
+<td>(/x.x)</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">&lt;Id&gt;</span> <span class="pre">=</span> <span class="pre">&lt;Exp&gt;</span></code>:</dt>
+<dd>assign <code class="docutils literal"><span class="pre">&lt;Exp&gt;</span></code> to <code class="docutils literal"><span class="pre">&lt;Id&gt;</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">&lt;Id&gt;</span></code>:</dt>
+<dd>print the attached expression if there is one, print a message stating that
+there is none otherwise.</dd>
+<dt><code class="docutils literal"><span class="pre">&lt;Exp&gt;</span></code>:</dt>
+<dd>print the expression if it is well formed, print a message stating
+that it is not otherwise.</dd>
+<dt><code class="docutils literal"><span class="pre">:NOBeval</span> <span class="pre">&lt;Id&gt;</span></code> or <code class="docutils literal"><span class="pre">:NOBeval</span> <span class="pre">&lt;Exp&gt;</span></code>:</dt>
+<dd>print all the steps of the β-evaluation either of the lambda expression
+attached to the <code class="docutils literal"><span class="pre">&lt;Id&gt;</span></code> or directly of <code class="docutils literal"><span class="pre">&lt;Exp&gt;</span></code> according to the normal
+order, that is the evaluation that begins by the leftmost expression.</dd>
+<dt><code class="docutils literal"><span class="pre">:AOBeval</span> <span class="pre">&lt;Id&gt;</span></code> or <code class="docutils literal"><span class="pre">:AOBeval</span> <span class="pre">&lt;Exp&gt;</span></code>:</dt>
+<dd>print all the steps of the β-evaluation either of the lambda expression
+attached to the <code class="docutils literal"><span class="pre">&lt;Id&gt;</span></code> or directly of <code class="docutils literal"><span class="pre">&lt;Exp&gt;</span></code> according to the
+applicative order, that is the evaluation that begins by the rightmost
+expression.</dd>
+<dt><code class="docutils literal"><span class="pre">:info</span> <span class="pre">&lt;Id&gt;</span></code> or <code class="docutils literal"><span class="pre">:info</span> <span class="pre">&lt;Exp&gt;</span></code>:</dt>
+<dd>print informations either about the expression attached to <code class="docutils literal"><span class="pre">&lt;Id&gt;</span></code> or
+directly about <code class="docutils literal"><span class="pre">&lt;Exp&gt;</span></code>.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">User Documentation</a><ul>
+<li><a class="reference internal" href="#general-command">General command</a></li>
+<li><a class="reference internal" href="#expression-manipulation">Expression manipulation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Fun With λ-Calculus Documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tech_doc.html"
+                        title="next chapter">Technical Documentation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/user_doc.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tech_doc.html" title="Technical Documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Fun With λ-Calculus Documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015-2018, Nicolas Osborne.
+      Last updated on 04/03/2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

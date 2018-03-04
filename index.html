@@ -2,16 +2,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Welcome to fwlc’s documentation! &#8212; Fun With λ Calculus 0.1 documentation</title>
+    <title>Fun With λ-Calculus Documentation &#8212; Fun With Lambda Calculus 0.7 beta documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1',
+        VERSION:     '0.7 beta',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Lambda Variable" href="lvar.html" /> 
+    <link rel="next" title="User Documentation" href="user_doc.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -37,9 +37,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="lvar.html" title="Lambda Variable"
+          <a href="user_doc.html" title="User Documentation"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Fun With λ Calculus 0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -48,92 +48,35 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="welcome-to-fwlc-s-documentation">
-<h1>Welcome to fwlc’s documentation!<a class="headerlink" href="#welcome-to-fwlc-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Fun with λ-calculus (fwlc for short) is an evaluator and explorator for Lambda
-Calculus.</p>
+  <div class="section" id="fun-with-calculus-documentation">
+<h1>Fun With λ-Calculus Documentation<a class="headerlink" href="#fun-with-calculus-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Greeting, fellow logician!</p>
+<p>Fun with λ-calculus (fwlc for short) is an evaluator and explorator for untyped
+Lambda Calculus.</p>
 <p>As an interpretor, fwlc can evaluate lambda expression, that is:</p>
 <ul class="simple">
 <li>perform β-reduction.</li>
-<li>perform η-reduction.</li>
+<li>perform η-reduction (not yet in fact).</li>
 </ul>
 <p>As an explorator, fwlc is able to give the user some meta-informations about a
 lambda expression. Here is a short list of the possibilities:</p>
 <ul class="simple">
 <li>test whether a lambda expression is in its β-normal form.</li>
 <li>give the set of free variables in a given lambda expression.</li>
-<li>test for the β-equivalence of two given lambda expressions.</li>
-<li>test for the α-equivalence of two given lambda expressions.</li>
+<li>test for the β-equivalence of two given lambda expressions (not yet in fact).</li>
+<li>test for the α-equivalence of two given lambda expressions (not yet in fact).</li>
 </ul>
-<p>In order, for the user to interact with fwlc, it offers a prompt in a terminal.
-Lambda expressions are represented in a way that is readable for the user and
-the machine. The choice of the author are:</p>
-<ul class="simple">
-<li>none of the parentheses are omitted except around a simple variable.</li>
-<li>the lambda operator is represented by the greek letter ‘λ’ but the user can
-use the character ‘/’ to facilitate the input.</li>
-</ul>
-<p>Here are some examples:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="27%" />
-<col width="52%" />
-<col width="20%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Expression</th>
-<th class="head">Representation</th>
-<th class="head">Input</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>Variable</td>
-<td><span class="math">\(x\)</span></td>
-<td>x</td>
-</tr>
-<tr class="row-odd"><td>Application</td>
-<td><span class="math">\((xy)\)</span></td>
-<td>(xy)</td>
-</tr>
-<tr class="row-even"><td>Application</td>
-<td><span class="math">\(((xy)z)\)</span></td>
-<td>((xy)z)</td>
-</tr>
-<tr class="row-odd"><td>Application</td>
-<td><span class="math">\((x(yz))\)</span></td>
-<td>(x(yz))</td>
-</tr>
-<tr class="row-even"><td>Abstraction</td>
-<td><span class="math">\((\lambda x.(x))\)</span></td>
-<td>(/x.(x))</td>
-</tr>
-</tbody>
-</table>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lvar.html">Lambda Variable</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lvar.html#module-lvar">Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lvar.html#classes">Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lvar.html#methods">Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_doc.html">User Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_doc.html#general-command">General command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_doc.html#expression-manipulation">Expression manipulation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lapp.html">Lambda Application</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lapp.html#module-lapp">Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lapp.html#classes">Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lapp.html#methods">Methods:</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="labs.html">Lambda Abstraction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="labs.html#module-labs">Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="labs.html#classes">Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="labs.html#methods">Methods:</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="lexpr.html">Lambda Expression</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lexpr.html#module-lexpr">Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lexpr.html#classes">Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lexpr.html#methods">Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tech_doc.html">Technical Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tech_doc.html#modelisation">modelisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tech_doc.html#parser">parser</a></li>
 </ul>
 </li>
 </ul>
@@ -154,9 +97,22 @@ use the character ‘/’ to facilitate the input.</li>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Fun With λ-Calculus Documentation</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
   <h4>Next topic</h4>
-  <p class="topless"><a href="lvar.html"
-                        title="next chapter">Lambda Variable</a></p>
+  <p class="topless"><a href="user_doc.html"
+                        title="next chapter">User Documentation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -181,13 +137,14 @@ use the character ‘/’ to facilitate the input.</li>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="lvar.html" title="Lambda Variable"
+          <a href="user_doc.html" title="User Documentation"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Fun With λ Calculus 0.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Nicolas Osborne.
+        &#169; Copyright 2015-2018, Nicolas Osborne.
+      Last updated on 04/03/2018.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
