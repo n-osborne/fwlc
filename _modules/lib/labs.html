@@ -5,12 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>labs &#8212; Fun With Lambda Calculus 0.7 beta documentation</title>
-    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <title>lib.labs &#8212; Fun With Lambda Calculus 0.7 beta documentation</title>
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
+        URL_ROOT:    '../../',
         VERSION:     '0.7 beta',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -18,25 +18,25 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -45,7 +45,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for labs</h1><div class="highlight"><pre>
+  <h1>Source code for lib.labs</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
@@ -57,11 +57,11 @@
 <span class="sd">:synopsis: Provide a modelisation for lambda expressions of the form abstraction.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">alphabet_def</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">lvar</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">lapp</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lib.alphabet_def</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lib.lvar</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lib.lapp</span> <span class="k">import</span> <span class="o">*</span>
 
-<div class="viewcode-block" id="LambdaAbsError"><a class="viewcode-back" href="../labs.html#labs.LambdaAbsError">[docs]</a><span class="k">class</span> <span class="nc">LambdaAbsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbsError"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbsError">[docs]</a><span class="k">class</span> <span class="nc">LambdaAbsError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Exception for badly formed LambdaAbs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -72,7 +72,7 @@
 
 
 
-<div class="viewcode-block" id="LambdaAbs"><a class="viewcode-back" href="../labs.html#labs.LambdaAbs">[docs]</a><span class="k">class</span> <span class="nc">LambdaAbs</span><span class="p">():</span>
+<div class="viewcode-block" id="LambdaAbs"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs">[docs]</a><span class="k">class</span> <span class="nc">LambdaAbs</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for Lambda Abstraction.</span>
 
@@ -99,7 +99,7 @@
 
 
 
-<div class="viewcode-block" id="LambdaAbs.__init__"><a class="viewcode-back" href="../labs.html#labs.LambdaAbs.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binder</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbs.__init__"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binder</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for LambdaAbs class.</span>
 
@@ -145,7 +145,7 @@
 
         
 
-<div class="viewcode-block" id="LambdaAbs.__repr__"><a class="viewcode-back" href="../labs.html#labs.LambdaAbs.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbs.__repr__"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide readable representation for LambdaAbs</span>
 <span class="sd">        :Examples:</span>
@@ -174,7 +174,7 @@
         
 
  
-<div class="viewcode-block" id="LambdaAbs.__eq__"><a class="viewcode-back" href="../labs.html#labs.LambdaAbs.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbs.__eq__"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This is used for strict equivalence, that is for two lambda expressions</span>
 <span class="sd">        that are written exactly the same.</span>
@@ -200,7 +200,7 @@
 
        
 
-<div class="viewcode-block" id="LambdaAbs.freeVar"><a class="viewcode-back" href="../labs.html#labs.LambdaAbs.freeVar">[docs]</a>    <span class="k">def</span> <span class="nf">freeVar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbs.freeVar"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs.freeVar">[docs]</a>    <span class="k">def</span> <span class="nf">freeVar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get free variables in the expression.</span>
 
@@ -220,7 +220,7 @@
 
 
 
-    <span class="k">def</span> <span class="nf">boundVar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbs.boundVar"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs.boundVar">[docs]</a>    <span class="k">def</span> <span class="nf">boundVar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the set of bound variables in the expression.</span>
 
@@ -230,10 +230,10 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: doctests</span>
-        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">binder</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">boundVar</span><span class="p">())</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">binder</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">boundVar</span><span class="p">())</span></div>
  
 
-<div class="viewcode-block" id="LambdaAbs.rename"><a class="viewcode-back" href="../labs.html#labs.LambdaAbs.rename">[docs]</a>    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_name</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbs.rename"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs.rename">[docs]</a>    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_name</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Change all the occurences of old_var to new_var.</span>
 
@@ -272,7 +272,7 @@
 
 
 
-<div class="viewcode-block" id="LambdaAbs.substitute"><a class="viewcode-back" href="../labs.html#labs.LambdaAbs.substitute">[docs]</a>    <span class="k">def</span> <span class="nf">substitute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbs.substitute"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs.substitute">[docs]</a>    <span class="k">def</span> <span class="nf">substitute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Substitute the free occurrences of a variable by an expression.</span>
 <span class="sd">        </span>
@@ -309,7 +309,7 @@
 
 
 
-<div class="viewcode-block" id="LambdaAbs.isBetaNormal"><a class="viewcode-back" href="../labs.html#labs.LambdaAbs.isBetaNormal">[docs]</a>    <span class="k">def</span> <span class="nf">isBetaNormal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbs.isBetaNormal"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs.isBetaNormal">[docs]</a>    <span class="k">def</span> <span class="nf">isBetaNormal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Test whether a Lambda expression is in its beta normal form.</span>
 
@@ -338,7 +338,7 @@
 
 
 
-<div class="viewcode-block" id="LambdaAbs.oneStepNOBetaEval"><a class="viewcode-back" href="../labs.html#labs.LambdaAbs.oneStepNOBetaEval">[docs]</a>    <span class="k">def</span> <span class="nf">oneStepNOBetaEval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbs.oneStepNOBetaEval"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs.oneStepNOBetaEval">[docs]</a>    <span class="k">def</span> <span class="nf">oneStepNOBetaEval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Preform one step of a Beta-evaluation in Normal Order.</span>
 
@@ -362,7 +362,7 @@
 
 
     
-<div class="viewcode-block" id="LambdaAbs.oneStepAOBetaEval"><a class="viewcode-back" href="../labs.html#labs.LambdaAbs.oneStepAOBetaEval">[docs]</a>    <span class="k">def</span> <span class="nf">oneStepAOBetaEval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaAbs.oneStepAOBetaEval"><a class="viewcode-back" href="../../tech_doc.html#lib.labs.LambdaAbs.oneStepAOBetaEval">[docs]</a>    <span class="k">def</span> <span class="nf">oneStepAOBetaEval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform one step of a Beta-Evaluation in Applicative Order.</span>
 
@@ -402,7 +402,7 @@
         <div class="sphinxsidebarwrapper">
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <div><input type="text" name="q" /></div>
       <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
@@ -418,13 +418,13 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

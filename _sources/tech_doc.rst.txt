@@ -1,0 +1,209 @@
+Technical Documentation
+========================
+
+
+
+modelisation
+------------
+
+--------------------
+Lambda Expression
+--------------------
+
+Fun With Lambda Calculus interacts with instances of ``LambdaExp`` class, which
+is the top layer of abstraction in this modelisation of untyped lambda
+expressions.
+
+``LambdaExp`` proposes the operations that are available in Fun With Lambda Calculus.
+
+It contains an instance of either ``LambdaApp``, ``LambdaAbs`` or ``LambdaVar``
+classes, which are the three elements of the Backus-Naur Form which is,
+according that we have an infinite set of variables:
+
+.. math::
+   <expression>\; ::= &<variable>\\
+   &|<expressions><expression>\\
+   &|\lambda <variable>.<expression>
+
+In order, for a class, to be contained in ``LambdaExp``, this class must fulfill
+some obligations, that is proposes some operations which are:
+
+- β-evaluation in normal and applicative order
+- a getter of the free variables in the expression
+- a test of β-normal form  
+
+
+++++++
+Module
+++++++
+
+.. automodule:: lib.lexpr
+
++++++++
+Classes
++++++++
+
+.. autoclass:: lib.lexpr.LambdaExpError
+
+.. autoclass:: lib.lexpr.LambdaExp
+
++++++++
+Methods
++++++++
+
+.. automethod:: lib.lexpr.LambdaExp.__init__
+
+.. automethod:: lib.lexpr.LambdaExp.__repr__
+
+.. automethod:: lib.lexpr.LambdaExp.__eq__
+
+.. automethod:: lib.lexpr.LambdaExp.freeVar
+
+.. automethod:: lib.lexpr.LambdaExp.isBetaNormal
+
+.. automethod:: lib.lexpr.LambdaExp.applyTo
+
+.. automethod:: lib.lexpr.LambdaExp.abstractVar
+		
+.. automethod:: lib.lexpr.LambdaExp.betaEvalWithTraces
+
+--------------------
+Lambda Application
+--------------------
+
+++++++
+Module
+++++++
+
+.. automodule:: lib.lapp
+		
++++++++
+Classes
++++++++
+
+.. autoclass:: lib.lapp.LambdaAppError
+   
+.. autoclass:: lib.lapp.LambdaApp
+
+
++++++++++
+Methods:
++++++++++
+
+.. automethod:: lib.lapp.LambdaApp.__init__
+
+.. automethod:: lib.lapp.LambdaApp.__repr__
+
+.. automethod:: lib.lapp.LambdaApp.__eq__
+
+.. automethod:: lib.lapp.LambdaApp.freeVar
+
+.. automethod:: lib.lapp.LambdaApp.boundVar
+
+.. automethod:: lib.lapp.LambdaApp.freshVar
+
+.. automethod:: lib.lapp.LambdaApp.rename
+
+.. automethod:: lib.lapp.LambdaApp.substitute
+
+.. automethod:: lib.lapp.LambdaApp.isRedex
+
+.. automethod:: lib.lapp.LambdaApp.isBetaNormal
+
+.. automethod:: lib.lapp.LambdaApp.avoidNameClash
+
+.. automethod:: lib.lapp.LambdaApp.betaReduction
+
+.. automethod:: lib.lapp.LambdaApp.oneStepNOBetaEval
+
+.. automethod:: lib.lapp.LambdaApp.oneStepAOBetaEval
+		
+--------------------
+Lambda Abstraction
+--------------------
+
+++++++
+Module
+++++++
+
+.. automodule:: lib.labs
+
++++++++
+Classes
++++++++
+
+.. autoclass:: lib.labs.LambdaAbsError
+   
+.. autoclass:: lib.labs.LambdaAbs
+
++++++++++
+Methods:
++++++++++
+
+.. automethod:: lib.labs.LambdaAbs.__init__
+
+.. automethod:: lib.labs.LambdaAbs.__repr__
+
+.. automethod:: lib.labs.LambdaAbs.__eq__
+
+.. automethod:: lib.labs.LambdaAbs.freeVar
+
+.. automethod:: lib.labs.LambdaAbs.boundVar
+		
+.. automethod:: lib.labs.LambdaAbs.rename
+
+.. automethod:: lib.labs.LambdaAbs.substitute			
+
+.. automethod:: lib.labs.LambdaAbs.isBetaNormal
+
+.. automethod:: lib.labs.LambdaAbs.oneStepNOBetaEval
+
+.. automethod:: lib.labs.LambdaAbs.oneStepAOBetaEval
+
+
+-----------------
+Lambda Variable
+-----------------
+
+++++++
+Module
+++++++
+
+.. automodule:: lib.lvar
+
++++++++
+Classes
++++++++
+
+.. autoclass:: lib.lvar.LambdaVarError
+   
+.. autoclass:: lib.lvar.LambdaVar
+
++++++++
+Methods
++++++++
+
+.. automethod:: lib.lvar.LambdaVar.__init__
+
+.. automethod:: lib.lvar.LambdaVar.__repr__
+
+.. automethod:: lib.lvar.LambdaVar.__eq__
+
+.. automethod:: lib.lvar.LambdaVar.getName
+
+.. automethod:: lib.lvar.LambdaVar.rename
+
+.. automethod:: lib.lvar.LambdaVar.freeVar
+
+.. automethod:: lib.lvar.LambdaVar.boundVar
+
+.. automethod:: lib.lvar.LambdaVar.substitute
+
+.. automethod:: lib.lvar.LambdaVar.isBetaNormal
+
+
+
+
+parser
+------
+

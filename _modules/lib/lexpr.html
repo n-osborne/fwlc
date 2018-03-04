@@ -5,12 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>lexpr &#8212; Fun With Lambda Calculus 0.7 beta documentation</title>
-    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <title>lib.lexpr &#8212; Fun With Lambda Calculus 0.7 beta documentation</title>
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
+        URL_ROOT:    '../../',
         VERSION:     '0.7 beta',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -18,25 +18,25 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -45,7 +45,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for lexpr</h1><div class="highlight"><pre>
+  <h1>Source code for lib.lexpr</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
@@ -57,12 +57,12 @@
 <span class="sd">:synopsis: Provide a general modelisation for lambda expressions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">alphabet_def</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">lvar</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">lapp</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">labs</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lib.alphabet_def</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lib.lvar</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lib.lapp</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">lib.labs</span> <span class="k">import</span> <span class="o">*</span>
 
-<div class="viewcode-block" id="LambdaExpError"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExpError">[docs]</a><span class="k">class</span> <span class="nc">LambdaExpError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaExpError"><a class="viewcode-back" href="../../tech_doc.html#lib.lexpr.LambdaExpError">[docs]</a><span class="k">class</span> <span class="nc">LambdaExpError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Exception for badly formed LambdaExp.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -72,7 +72,7 @@
 
 
         
-<div class="viewcode-block" id="LambdaExp"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp">[docs]</a><span class="k">class</span> <span class="nc">LambdaExp</span><span class="p">():</span>
+<div class="viewcode-block" id="LambdaExp"><a class="viewcode-back" href="../../tech_doc.html#lib.lexpr.LambdaExp">[docs]</a><span class="k">class</span> <span class="nc">LambdaExp</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    General class for lambda expressions. </span>
 
@@ -101,7 +101,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="LambdaExp.__init__"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaExp.__init__"><a class="viewcode-back" href="../../tech_doc.html#lib.lexpr.LambdaExp.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for LambdaExpr class.</span>
 
@@ -135,7 +135,7 @@
 
 
         
-<div class="viewcode-block" id="LambdaExp.__repr__"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaExp.__repr__"><a class="viewcode-back" href="../../tech_doc.html#lib.lexpr.LambdaExp.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide readable representation for LambdaExp.</span>
 <span class="sd">        :Examples:</span>
@@ -154,7 +154,7 @@
  
 
 
-<div class="viewcode-block" id="LambdaExp.__eq__"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaExp.__eq__"><a class="viewcode-back" href="../../tech_doc.html#lib.lexpr.LambdaExp.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This is used for strict equivalence, that is for two lambda expressions</span>
 <span class="sd">        that are written exactly the same.</span>
@@ -181,14 +181,13 @@
 
 
 
-<div class="viewcode-block" id="LambdaExp.freeVar"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp.freeVar">[docs]</a>    <span class="k">def</span> <span class="nf">freeVar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaExp.freeVar"><a class="viewcode-back" href="../../tech_doc.html#lib.lexpr.LambdaExp.freeVar">[docs]</a>    <span class="k">def</span> <span class="nf">freeVar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the free variables of the expression.</span>
 
 <span class="sd">        :return: the free variables</span>
 <span class="sd">        :rtype: set</span>
 <span class="sd">        :Examples:</span>
-<span class="sd">        :Tests:</span>
 <span class="sd">        </span>
 <span class="sd">        &gt;&gt;&gt; from lvar import *</span>
 <span class="sd">        &gt;&gt;&gt; from lapp import *</span>
@@ -209,9 +208,21 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="o">.</span><span class="n">freeVar</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="LambdaExp.isBetaNormal"><a class="viewcode-back" href="../../tech_doc.html#lib.lexpr.LambdaExp.isBetaNormal">[docs]</a>    <span class="k">def</span> <span class="nf">isBetaNormal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test whether a Lambda expression is in its beta normal form.</span>
+
+<span class="sd">        :return: </span>
+
+<span class="sd">           - True if the expression is its beta normal form</span>
+<span class="sd">           - False otherwise</span>
+
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="o">.</span><span class="n">isBetaNormal</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="LambdaExp.applyTo"><a class="viewcode-back" href="../lexpr.html#lexpr.LambdaExp.applyTo">[docs]</a>    <span class="k">def</span> <span class="nf">applyTo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaExp.applyTo"><a class="viewcode-back" href="../../tech_doc.html#lib.lexpr.LambdaExp.applyTo">[docs]</a>    <span class="k">def</span> <span class="nf">applyTo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build a Lambda application from two Lambda expressions.</span>
 
@@ -233,14 +244,13 @@
         
         
 
-    <span class="k">def</span> <span class="nf">abstractVar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaExp.abstractVar"><a class="viewcode-back" href="../../tech_doc.html#lib.lexpr.LambdaExp.abstractVar">[docs]</a>    <span class="k">def</span> <span class="nf">abstractVar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build a lambda abstraction from the expression with the given variable.</span>
 
 <span class="sd">        :param var: the binder of the returned abstraction</span>
 <span class="sd">        :type var: str</span>
-<span class="sd">        :return: the lambda abstraction composed of var as binder and the</span>
-<span class="sd">        expression as body</span>
+<span class="sd">        :return: the lambda abstraction with var as binder and self as body</span>
 <span class="sd">        :rtype: LambdaExp</span>
 <span class="sd">        :Examples:</span>
 
@@ -255,11 +265,11 @@
 <span class="sd">        &gt;&gt;&gt; abs.expression.body == expr.expression</span>
 <span class="sd">        True</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">LambdaExp</span><span class="p">(</span><span class="n">LambdaAbs</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">LambdaExp</span><span class="p">(</span><span class="n">LambdaAbs</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">expression</span><span class="p">))</span></div>
 
 
 
-    <span class="k">def</span> <span class="nf">betaEvalWithTraces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evalMode</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="LambdaExp.betaEvalWithTraces"><a class="viewcode-back" href="../../tech_doc.html#lib.lexpr.LambdaExp.betaEvalWithTraces">[docs]</a>    <span class="k">def</span> <span class="nf">betaEvalWithTraces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evalMode</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform a complete beta evaluation.</span>
 <span class="sd">        </span>
@@ -299,7 +309,7 @@
             <span class="k">while</span> <span class="ow">not</span> <span class="n">expr</span><span class="o">.</span><span class="n">isBetaNormal</span><span class="p">():</span>
                 <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">oneStepAOBetaEval</span><span class="p">()</span>
                 <span class="n">trace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LambdaExp</span><span class="p">(</span><span class="n">expr</span><span class="p">))</span>
-            <span class="k">return</span> <span class="n">trace</span></div>
+            <span class="k">return</span> <span class="n">trace</span></div></div>
 
 
 
@@ -317,7 +327,7 @@
         <div class="sphinxsidebarwrapper">
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <div><input type="text" name="q" /></div>
       <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
@@ -333,13 +343,13 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Fun With Lambda Calculus 0.7 beta documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
